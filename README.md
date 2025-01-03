@@ -1,59 +1,83 @@
 # TaskTrackr
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+TaskTrackr is a full-stack, personalized to-do application designed to streamline task management. Built with modern technologies, TaskTrackr caters to my specific needs as I sought a solution tailored for my workflow, eliminating repetitive task entries and improving overall productivity.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **Customizable Task Management**: Easily organize, track, and update tasks based on personal preferences.
+- **Streamlined Workflow**: Avoid repetitive typing by reusing and managing tasks efficiently.
+- **Full-Stack Integration**: A robust backend supports a seamless user experience.
 
-```bash
-ng serve
-```
+## Technologies Used
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Frontend**: Angular (TypeScript)
+- **Backend**: Java Spring Boot
+- **Database**: PostgreSQL
+- **Design**: Figma
+- **Language**: TypeScript
 
-## Code scaffolding
+## Motivation
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+This project was born out of frustration with existing to-do applications that failed to meet my requirements. As my first learning project with Angular, TaskTrackr allowed me to explore full-stack development while solving a real-world problem.
 
-```bash
-ng generate component component-name
-```
+## Installation
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Prerequisites
 
-```bash
-ng generate --help
-```
+- Node.js
+- Angular CLI
+- Java (JDK 17 or higher)
+- PostgreSQL
 
-## Building
+### Steps
 
-To build the project run:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ntamasa/taskTrackr.git
+   ```
+2. Navigate to the project directiory:
+   ```bash
+   cd taskTrackr
+   ```
+3. Set up the backend:
+   - Configure the PostgreSQL databse in the Spring Boot application properties file.
+   - Build and run the Spring Boot application.
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+4. Set up the frontend:
 
-```bash
-ng build
-```
+   - Navigate to the Angular project folder:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+   ```bash
+   cd frontend
+   ```
 
-## Running unit tests
+   - Install dependencies:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+   ```bash
+   npm install
+   ```
 
-```bash
-ng test
-```
+   - start the development server:
+     ng serve
 
-## Running end-to-end tests
+5. Access the application at http://localhost:4200
 
-For end-to-end (e2e) testing, run:
+## Usage
 
-```bash
-ng e2e
-```
+TaskTrackr helps you:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Create tasks quickly without repetitive data entry.
+- Organize tasks by priority or category.
+- Track progress and manage deadlines.
 
-## Additional Resources
+## License
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- This project represents my first hands-on experience with Angular and full-stack development.
+
+Feel free to contribute or suggest features via [GitHub Issues](https://github.com/ntamasa/taskTrackr/issues).
