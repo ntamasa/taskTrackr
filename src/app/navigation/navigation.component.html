@@ -1,0 +1,20 @@
+<nav
+  class="px-6 bg-indigo-50 h-screen w-1/5 min-w-min flex flex-col justify-between"
+>
+  <header>
+    <app-logo [classes]="['max-w-32', 'mx-auto', 'py-4', 'h-100']"></app-logo>
+
+    <p class="text-indigo-800 font-semibold text-center text-2xl mt-2">
+      Create an account or log in to save your tasks 😉
+    </p>
+  </header>
+
+  <ul class="text-slate-100 flex flex-col gap-5 w-4/5 mx-auto">
+    <app-navigation-item *ngFor="let item of navItems">
+      <div [innerHTML]="getIcon(item.icon)" class="inline"></div>
+      {{ item.name }}
+    </app-navigation-item>
+  </ul>
+
+  <app-footer></app-footer>
+</nav>
