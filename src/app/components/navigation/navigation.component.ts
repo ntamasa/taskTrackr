@@ -125,8 +125,6 @@ export class NavigationComponent implements OnInit {
       });
       this.navItems = newArray;
     }
-
-    console.log(this.navItems[0].icon);
   }
 
   getIcon(icon: string): SafeHtml {

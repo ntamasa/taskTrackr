@@ -1,0 +1,5 @@
+<ul class="grid grid-cols-2 grid-rows-4 gap-y-1 gap-x-10 mt-2 items-center">
+  <li *ngFor="let todo of todos">
+    <app-todo-item [todo]="todo"></app-todo-item>
+  </li>
+</ul>
