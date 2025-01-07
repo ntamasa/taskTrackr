@@ -97,7 +97,7 @@ export class NavigationComponent implements OnInit {
       </svg>`,
     },
   ];
-  private isLogged = true;
+  private isLogged = false;
 
   constructor(private router: Router, private sanitizer: DomSanitizer) {}
 
@@ -129,11 +129,12 @@ export class NavigationComponent implements OnInit {
     console.log(this.navItems[0].icon);
   }
 
-  moveToHome(): void {
-    this.router.navigate(['/home']);
-  }
-
   getIcon(icon: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(icon);
+  }
+
+  navigateTo(path: string) {
+    if (path === 'home') this.router.navigate(['/']);
+    this.router.navigate([`/${path}`]);
   }
 }
