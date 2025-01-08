@@ -25,6 +25,13 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
 import { TodoMessageComponent } from './components/todo-message/todo-message.component';
 import { TodoMessageFormComponent } from './components/todo-message-form/todo-message-form.component';
 import { CreateTaskFormComponent } from './components/create-task-form/create-task-form.component';
+import { MatCardModule } from '@angular/material/card';
+import {
+  MatDatepickerIntl,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -48,9 +55,17 @@ import { CreateTaskFormComponent } from './components/create-task-form/create-ta
     TodoMessageComponent,
     TodoMessageFormComponent,
     CreateTaskFormComponent,
+    CalendarComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, MatCheckboxModule],
-  providers: [provideAnimationsAsync()],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatDatepickerModule,
+  ],
+  providers: [provideAnimationsAsync(), provideNativeDateAdapter()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

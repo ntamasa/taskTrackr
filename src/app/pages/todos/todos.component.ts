@@ -116,6 +116,7 @@ export class TodosComponent implements OnInit {
   otherTodos: Todo[] = this.todos.filter((todo) => !todo.isImportant);
 
   isCreateMenuOpen: boolean = false;
+  isCalendarOpen: boolean = false;
 
   constructor() {}
 
