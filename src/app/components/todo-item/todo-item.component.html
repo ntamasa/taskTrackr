@@ -2,13 +2,17 @@
   [class.opacity-50]="todo.done"
   class="flex justify-between items-center w-full relative"
 >
-  <mat-checkbox [checked]="todo.done" (click)="$event.stopPropagation()">
-    <span [class.line-through]="todo.done" class="relative">{{
+  <mat-checkbox
+    [checked]="todo.done"
+    class=""
+    (click)="$event.stopPropagation()"
+  >
+    <span [class.line-through]="todo.done" class="relative text-indigo-800">{{
       todo.text
     }}</span>
     <!-- Favourited, has message icons -->
     <div
-      class="absolute flex flex-row w-fit z-50"
+      class="absolute flex flex-row w-fit z-50 text-indigo-800"
       [class.-top-1]="todo.text.length > 45"
       [class.top-0]="todo.text.length <= 45"
       [class.-right-5]="
