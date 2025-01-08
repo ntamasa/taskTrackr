@@ -115,6 +115,8 @@ export class TodosComponent implements OnInit {
   importantTodos: Todo[] = this.todos.filter((todo) => todo.isImportant);
   otherTodos: Todo[] = this.todos.filter((todo) => !todo.isImportant);
 
+  isCreateMenuOpen: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {

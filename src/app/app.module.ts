@@ -22,6 +22,9 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { TodoMessageComponent } from './components/todo-message/todo-message.component';
+import { TodoMessageFormComponent } from './components/todo-message-form/todo-message-form.component';
+import { CreateTaskFormComponent } from './components/create-task-form/create-task-form.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,9 @@ import { ErrorMessageComponent } from './components/error-message/error-message.
     TodoItemComponent,
     TodoListComponent,
     ErrorMessageComponent,
+    TodoMessageComponent,
+    TodoMessageFormComponent,
+    CreateTaskFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, MatCheckboxModule],
   providers: [provideAnimationsAsync()],

@@ -20,6 +20,8 @@ export class TodoItemComponent implements OnInit {
   };
 
   isOpen: boolean = false;
+  isMessageShown: boolean = false;
+  isMessageEditing: boolean = false;
 
   constructor() {}
 

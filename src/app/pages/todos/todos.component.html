@@ -6,7 +6,7 @@
 
   <!-- To-do list -->
   <section
-    class="min-w-full mb-10 h-fit bg-indigo-100 rounded-3xl p-10 text-indigo-800"
+    class="min-w-96 w-full xl:w-3/4 mb-10 h-fit bg-indigo-100 rounded-3xl p-10 text-indigo-800"
   >
     <article>
       <h3 class="font-semibold text-lg">~ most important tasks</h3>
@@ -22,7 +22,11 @@
   </section>
 
   <!-- Action buttons -->
-  <section class="w-full flex justify-around">
+  <section class="w-full xl:w-3/4 flex justify-around">
+    <app-btn (click)="isCreateMenuOpen = !isCreateMenuOpen">
+      <span>Add a new task</span>
+    </app-btn>
+
     <app-btn>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -77,4 +81,6 @@
       <span>Clead day</span>
     </app-btn>
   </section>
+
+  <section *ngIf="isCreateMenuOpen"></section>
 </main>

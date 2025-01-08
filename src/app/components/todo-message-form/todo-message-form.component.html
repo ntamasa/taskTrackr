@@ -1,0 +1,31 @@
+<form
+  class="bg-indigo-200 rounded-xl absolute -top-3/4 right-12 translate-x-full -translate-y-full py-3 px-6 flex flex-col gap-2 z-50 shadow-md"
+>
+  <input
+    class="bg-indigo-800 text-slate-100 rounded-xl px-3 py-1 selection:bg-indigo-500 min-w-56 text-sm"
+    [value]="todo.message"
+    type="text"
+    name="todo-message"
+    id="todo-message"
+    maxlength="50"
+    placeholder="Add a message to this task..."
+  />
+
+  <div class="flex flex-row justify-between">
+    <button
+      class="px-2 py-1 rounded-lg bg-indigo-800 hover:bg-indigo-900 transition duration-300 text-slate-100 font-medium"
+      type="submit"
+      (click)="
+        $event.preventDefault(); handleExit(); ('(TODO SAVE MESSAGE TO DB)')
+      "
+    >
+      Done
+    </button>
+    <button
+      class="px-2 py-1 rounded-lg bg-indigo-800 hover:bg-indigo-900 transition duration-300 shadow-md text-slate-100 font-medium z-50"
+      (click)="handleExit()"
+    >
+      Cancel
+    </button>
+  </div>
+</form>
