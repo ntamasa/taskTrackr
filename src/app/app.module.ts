@@ -21,6 +21,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
     BtnComponent,
     TodoItemComponent,
     TodoListComponent,
+    ErrorMessageComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, MatCheckboxModule],
   providers: [provideAnimationsAsync()],

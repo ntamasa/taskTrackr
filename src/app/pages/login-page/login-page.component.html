@@ -4,6 +4,7 @@
   <div class="flex flex-col justify-center">
     <app-page-heading>Log in to your account to save todos</app-page-heading>
     <app-login-form></app-login-form>
+    <app-error-message *ngIf="error">{{ error }}</app-error-message>
   </div>
   <img class="w-1/2 lg:w-2/5" src="login-img.png" alt="Purple flower bouquet" />
 </main>
