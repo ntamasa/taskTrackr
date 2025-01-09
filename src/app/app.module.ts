@@ -26,12 +26,11 @@ import { TodoMessageComponent } from './components/todo-message/todo-message.com
 import { TodoMessageFormComponent } from './components/todo-message-form/todo-message-form.component';
 import { CreateTaskFormComponent } from './components/create-task-form/create-task-form.component';
 import { MatCardModule } from '@angular/material/card';
-import {
-  MatDatepickerIntl,
-  MatDatepickerModule,
-} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { FavouritesComponent } from './pages/favourites/favourites.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -56,6 +55,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     TodoMessageFormComponent,
     CreateTaskFormComponent,
     CalendarComponent,
+    FavouritesComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +64,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatCheckboxModule,
     MatCardModule,
     MatDatepickerModule,
+    MatTabsModule,
   ],
   providers: [provideAnimationsAsync(), provideNativeDateAdapter()],
   bootstrap: [AppComponent],
