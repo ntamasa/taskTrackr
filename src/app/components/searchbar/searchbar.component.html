@@ -1,0 +1,37 @@
+<form class="example-form mb-5">
+  <div
+    class="flex flex-row justify-left items-center gap-4 bg-indigo-800 text-slate-100 w-fit rounded-lg px-3"
+  >
+    <label for="search">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6 hover:scale-110 transition duration-300 ease-in-out cursor-pointer"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+    </label>
+
+    <input
+      type="text"
+      placeholder="Search for a day template"
+      id="search"
+      [formControl]="control"
+      [matAutocomplete]="auto"
+      class="example-input pr-6 py-3 min-w-72 w-1/2 bg-indigo-800 selection:bg-indigo-400 shadow-sm focus:outline-none"
+    />
+  </div>
+
+  <mat-autocomplete #auto="matAutocomplete">
+    @for (data of filteredData | async; track data) {
+    <mat-option [value]="data.name">{{ data.name }}</mat-option>
+    }
+  </mat-autocomplete>
+</form>
