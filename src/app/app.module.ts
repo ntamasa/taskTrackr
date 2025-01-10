@@ -18,7 +18,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { BtnComponent } from './components/btn/btn.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
@@ -31,6 +31,10 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { FavouritesComponent } from './pages/favourites/favourites.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { DayTemplateComponent } from './components/day-template/day-template.component';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { AsyncPipe } from '@angular/common';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -56,15 +60,20 @@ import { MatTabsModule } from '@angular/material/tabs';
     CreateTaskFormComponent,
     CalendarComponent,
     FavouritesComponent,
+    DayTemplateComponent,
+    SearchbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
+    AsyncPipe,
     MatCheckboxModule,
     MatCardModule,
     MatDatepickerModule,
     MatTabsModule,
+    MatAutocompleteModule,
   ],
   providers: [provideAnimationsAsync(), provideNativeDateAdapter()],
   bootstrap: [AppComponent],

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Todo from '../../todo';
+import Todo from '../models/todo';
 
 interface DayMessage {
   day: string;

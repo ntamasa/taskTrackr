@@ -1,0 +1,9 @@
+<article
+  *ngFor="let day of days"
+  class="mb-10 bg-indigo-100 rounded-3xl p-10 text-indigo-800"
+>
+  <h4 class="text-indigo-800 text-2xl font-medium w-full mb-5 leading-tight">
+    ~ {{ day.name }}
+  </h4>
+  <app-todo-list [todos]="day.tasks"></app-todo-list>
+</article>

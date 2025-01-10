@@ -18,43 +18,48 @@
     <!-- TODO -->
     <mat-tab label="Days">
       <section class="min-w-96 w-full my-10 h-fit">
-        <h3
-          class="text-indigo-800 text-4xl font-semibold w-full mb-10 leading-tight text-center"
-        >
-          Week 13
-        </h3>
-        <article
-          *ngFor="let day of weekdays"
-          class="mb-10 bg-indigo-100 rounded-3xl p-10 text-indigo-800"
-        >
-          <h4
-            class="text-indigo-800 text-2xl font-medium w-full mb-5 leading-tight"
+        <app-searchbar
+          [searchData]="days"
+          [(actualData)]="filteredDays"
+        ></app-searchbar>
+        <ng-container *ngIf="filteredDays.length > 0; else elseTemplate">
+          <app-day-template [days]="filteredDays"></app-day-template>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <h3
+            class="text-indigo-800 text-4xl font-semibold w-full mt-10 leading-tight text-center"
           >
-            ~ {{ day }}
-          </h4>
-          <app-todo-list [todos]="favourites"></app-todo-list>
-        </article>
+            No day template found with this name! Try another one, or just
+            create it 😉
+          </h3>
+        </ng-template>
       </section>
     </mat-tab>
 
     <mat-tab label="Weeks">
       <section class="min-w-96 w-full my-10 h-fit">
-        <h3
-          class="text-indigo-800 text-4xl font-semibold w-full mb-10 leading-tight text-center"
-        >
-          Week 13
-        </h3>
-        <article
-          *ngFor="let day of weekdays"
-          class="mb-10 bg-indigo-100 rounded-3xl p-10 text-indigo-800"
-        >
-          <h4
-            class="text-indigo-800 text-2xl font-medium w-full mb-5 leading-tight"
+        <app-searchbar
+          [searchData]="weeks"
+          [(actualData)]="filteredWeeks"
+        ></app-searchbar>
+        <ng-container *ngIf="filteredWeeks.length > 0; else elseTemplate">
+          <div *ngFor="let week of filteredWeeks">
+            <h3
+              class="text-indigo-800 text-4xl font-semibold w-full mb-10 leading-tight text-center"
+            >
+              {{ week.name }}
+            </h3>
+            <app-day-template [days]="week.days"></app-day-template>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <h3
+            class="text-indigo-800 text-4xl font-semibold w-full mt-10 leading-tight text-center"
           >
-            ~ {{ day }}
-          </h4>
-          <app-todo-list [todos]="favourites"></app-todo-list>
-        </article>
+            No week template found with this name! Try another one, or just
+            create it 😉
+          </h3>
+        </ng-template>
       </section>
     </mat-tab>
   </mat-tab-group>

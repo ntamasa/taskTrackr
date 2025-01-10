@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
-import Day from '../../day';
-import Week from '../../week';
+import Day from '../../pages/models/day';
+import Week from '../../pages/models/week';
 
 @Component({
   selector: 'app-searchbar',
@@ -28,7 +28,6 @@ export class SearchbarComponent implements OnInit {
     this.filteredData.subscribe((data) => {
       this.actualData = data;
       this.actualDataChange.emit(this.actualData);
-      console.log(this.actualData);
     });
   }
 
