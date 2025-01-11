@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import Todo from '../../pages/models/todo';
+import Todo from '../../models/todo';
 
 @Component({
   selector: 'app-todo-item',

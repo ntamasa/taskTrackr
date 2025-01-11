@@ -1,8 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
-import Todo from '../models/todo';
-import Day from '../models/day';
+import Todo from '../../models/todo';
+import Day from '../../models/day';
 import { Observable } from 'rxjs';
-import Week from '../models/week';
+import Week from '../../models/week';
 
 @Component({
   selector: 'app-favourites',

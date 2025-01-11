@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import Week from '../../pages/models/week';
-import Day from '../../pages/models/day';
+import Week from '../../models/week';
+import Day from '../../models/day';
 
 @Component({
   selector: 'app-day-template',

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
-import Day from '../../pages/models/day';
-import Week from '../../pages/models/week';
+import Day from '../../models/day';
+import Week from '../../models/week';
 
 @Component({
   selector: 'app-searchbar',
