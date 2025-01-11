@@ -4,4 +4,5 @@ export default interface Week {
   id: number;
   name: string;
   days: Day[];
+  isDeafult: boolean;
 }
