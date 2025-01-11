@@ -12,16 +12,6 @@ import Week from '../models/week';
   styleUrl: './favourites.component.css',
 })
 export class FavouritesComponent implements OnInit {
-  weekdays: string[] = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ];
-
   favourites: Todo[] = [
     {
       id: 1,
@@ -540,6 +530,8 @@ export class FavouritesComponent implements OnInit {
     },
   ];
   filteredWeeks: Week[] = this.weeks;
+
+  isCreateMenuOpen: boolean = false;
 
   constructor() {}
 
