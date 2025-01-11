@@ -35,6 +35,8 @@ import { DayTemplateComponent } from './components/day-template/day-template.com
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     FavouritesComponent,
     DayTemplateComponent,
     SearchbarComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatDatepickerModule,
     MatTabsModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
   ],
   providers: [provideAnimationsAsync(), provideNativeDateAdapter()],
   bootstrap: [AppComponent],

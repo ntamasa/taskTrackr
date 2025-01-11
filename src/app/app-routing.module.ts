@@ -5,6 +5,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { TodosComponent } from './pages/todos/todos.component';
 import { FavouritesComponent } from './pages/favourites/favourites.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterPageComponent },
   { path: 'todos', component: TodosComponent },
   { path: 'favourites', component: FavouritesComponent },
-  { path: '**', component: HomePageComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
