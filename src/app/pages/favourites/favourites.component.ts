@@ -532,6 +532,7 @@ export class FavouritesComponent implements OnInit {
   filteredWeeks: Week[] = this.weeks;
 
   isCreateMenuOpen: boolean = false;
+  isCalendarOpen: boolean = false;
 
   constructor() {}
 

@@ -71,6 +71,7 @@
           [searchData]="days"
           [(actualData)]="filteredDays"
         ></app-searchbar>
+
         <ng-container *ngIf="filteredDays.length > 0; else elseTemplate">
           <app-day-template [days]="filteredDays"></app-day-template>
         </ng-container>
