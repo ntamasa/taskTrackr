@@ -5,64 +5,73 @@ import { BehaviorSubject, filter } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private tasks: Todo[] = mockTasks;
-  private tasksSubject: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>(
-    this.tasks
+  private tasks: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>(
+    [] as Todo[]
   );
+  data$ = this.tasks.asObservable();
 
-  tasks$ = this.tasksSubject.asObservable();
+  constructor() {
+    this.tasks.next(mockTasks);
+  }
 
   toggleFavourite(id: number): void {
-    this.tasks = this.tasks.map((task) =>
-      task.id === id ? { ...task, isFavourite: !task.isFavourite } : task
+    const currentTasks = this.tasks.getValue();
+    this.tasks.next(
+      currentTasks.map((task) =>
+        task.id === id ? { ...task, isFavourite: !task.isFavourite } : task
+      )
     );
-    this.tasksSubject.next(this.tasks);
   }
 
-  getTasks(): Todo[] {
-    return this.tasks;
+  addTask(text: string, importance: string): void {
+    const currentTasks = this.tasks.getValue();
+
+    if (currentTasks.find((task) => task.text === text)) return;
+
+    const newTask: Todo = {
+      id: Date.now(),
+      text,
+      done: false,
+      isImportant: importance === 'important',
+      isFavourite: false,
+      message: '',
+    };
+    this.tasks.next([...currentTasks, newTask]);
   }
 
-  // getTasks() {
-  //   return this.tasks.asObservable();
-  //   this.tasks.asObservable().pipe(filter((tasks) => tasks));
-  // }
+  deleteTask(id: number): void {
+    const currentTasks = this.tasks.getValue();
+    this.tasks.next(currentTasks.filter((task) => task.id !== id));
+  }
 
-  // getImportantTasks() {
-  //   return this.tasks.getValue().filter((task) => task.isImportant);
-  // }
+  updateMessage(id: number, message: string) {
+    const currentTasks = this.tasks.getValue();
+    this.tasks.next(
+      currentTasks.map((task) => (task.id === id ? { ...task, message } : task))
+    );
+  }
 
-  // getNonImportantTasks() {
-  //   return this.tasks.getValue().filter((task) => !task.isImportant);
-  // }
+  finishTask(id: number) {
+    const currentTasks = this.tasks.getValue();
+    this.tasks.next(
+      currentTasks.map((task) =>
+        task.id === id ? { ...task, done: !task.done } : task
+      )
+    );
+  }
 
-  // getFavouriteTasks() {
-  //   return this.tasks.getValue().filter((task) => task.isFavourite);
-  // }
+  duplicateTask(id: number): void {
+    const currentTasks = this.tasks.getValue();
+    const taskToDuplicate = currentTasks.find((task) => task.id === id);
+    if (taskToDuplicate) {
+      this.tasks.next([
+        ...currentTasks,
+        { ...taskToDuplicate, id: Date.now(), done: false },
+      ]);
+    }
+  }
 
-  // addTask(task: Todo) {
-  //   const currentTasks = this.tasks.getValue();
-  //   this.tasks.next([...currentTasks, task]);
-  // }
-
-  // removeTask(id: number) {
-  //   const currentTasks = this.tasks.getValue();
-  //   this.tasks.next(currentTasks.filter((task) => task.id !== id));
-  // }
-
-  // toggleFavourite(id: number) {
-  //   const currentTasks = this.tasks.getValue();
-  //   this.tasks.next(
-  //     currentTasks.map((task) =>
-  //       task.id === id ? { ...task, isFavourite: !task.isFavourite } : task
-  //     )
-  //   );
-  // }
-
-  // addMessage(id: number, message: string) {
-  //   const currentTasks = this.tasks.getValue();
-  //   this.tasks.next(
-  //     currentTasks.map((task) => (task.id === id ? { ...task, message } : task))
-  //   );
-  // }
+  clearTasks(): void {
+    this.tasks.next([]);
+  }
 }

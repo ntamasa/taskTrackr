@@ -1,7 +1,7 @@
 <ul
   class="text-indigo-800 grid grid-cols-2 grid-rows-4 gap-y-1 gap-x-10 mt-2 items-center"
 >
-  <li *ngFor="let todo of todos" class="text-indigo-800">
-    <app-todo-item [todo]="todo"></app-todo-item>
+  <li *ngFor="let task of tasks" class="text-indigo-800">
+    <app-todo-item [task]="task"></app-todo-item>
   </li>
 </ul>

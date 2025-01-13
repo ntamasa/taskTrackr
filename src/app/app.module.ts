@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
 import { NavigationItemComponent } from './components/navigation-item/navigation-item.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LogoComponent } from './components/logo/logo.component';
@@ -37,12 +36,13 @@ import { AsyncPipe } from '@angular/common';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TodosPageComponent } from './pages/todos-page/todos-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    HomePageComponent,
     NavigationItemComponent,
     FooterComponent,
     LogoComponent,
@@ -65,6 +65,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DayTemplateComponent,
     SearchbarComponent,
     NotFoundComponent,
+    TodosPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +79,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTabsModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
   ],
   providers: [provideAnimationsAsync(), provideNativeDateAdapter()],
   bootstrap: [AppComponent],

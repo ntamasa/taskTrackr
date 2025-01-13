@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import Todo from '../../models/todo';
+import { FormControl } from '@angular/forms';
+import { TaskService } from '../../services/taskService';
 
 @Component({
   selector: 'app-todo-message-form',
@@ -9,7 +11,7 @@ import Todo from '../../models/todo';
   styleUrl: './todo-message-form.component.css',
 })
 export class TodoMessageFormComponent implements OnInit {
-  @Input() todo: Todo = {
+  @Input() task: Todo = {
     id: 0,
     text: '',
     done: false,
@@ -21,11 +23,20 @@ export class TodoMessageFormComponent implements OnInit {
   @Output() isEditingChange: EventEmitter<boolean> =
     new EventEmitter<boolean>();
 
-  constructor() {}
+  message: string = this.task.message;
 
-  ngOnInit(): void {}
+  constructor(private taskService: TaskService) {}
 
-  handleExit(): void {
+  ngOnInit(): void {
+    this.message = this.task.message;
+  }
+
+  handleSubmit(): void {
+    this.isEditing = false;
+    this.taskService.updateMessage(this.task.id, this.message);
+  }
+
+  handleCancel(): void {
     this.isEditing = false;
     this.isEditingChange.emit(this.isEditing);
   }

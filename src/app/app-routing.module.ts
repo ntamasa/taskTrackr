@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { TodosComponent } from './pages/todos/todos.component';
 import { FavouritesComponent } from './pages/favourites/favourites.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { TodosPageComponent } from './pages/todos-page/todos-page.component';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
-  { path: 'todos', component: TodosComponent },
+  { path: 'todos', component: TodosPageComponent },
   { path: 'favourites', component: FavouritesComponent },
   { path: '**', component: NotFoundComponent },
 ];

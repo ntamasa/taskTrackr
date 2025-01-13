@@ -1,26 +1,26 @@
 <span
-  [class.opacity-50]="todo.done"
+  [class.opacity-50]="task.done"
   class="flex justify-between items-center w-full relative gap-7"
 >
   <mat-checkbox
-    [checked]="todo.done"
+    [checked]="task.done"
     class="relative"
-    (click)="$event.stopPropagation()"
+    (click)="finishTask(); $event.stopPropagation()"
   >
-    <span [class.line-through]="todo.done" class="relative text-indigo-800">{{
-      todo.text
+    <span [class.line-through]="task.done" class="relative text-indigo-800">{{
+      task.text
     }}</span>
     <!-- Favourited, has message icons -->
     <div
-      class="absolute flex flex-row w-fit z-50 text-indigo-800"
-      [class.-top-1]="todo.text.length > 45"
-      [class.top-0]="todo.text.length <= 45"
+      class="absolute flex flex-row w-fit z-40 text-indigo-800"
+      [class.-top-1]="task.text.length > 45"
+      [class.top-0]="task.text.length <= 45"
       [class.-right-5]="
-        (todo.isFavourite && todo.message.length === 0) ||
-        (!todo.isFavourite && todo.message.length > 0)
+        (task.isFavourite && task.message.length === 0) ||
+        (!task.isFavourite && task.message.length > 0)
       "
-      [class.-right-10]="todo.isFavourite && todo.message.length > 0"
-      *ngIf="!isOpen && (todo.isFavourite || todo.message.length > 0)"
+      [class.-right-10]="task.isFavourite && task.message.length > 0"
+      *ngIf="!isOpen && (task.isFavourite || task.message.length > 0)"
     >
       <!-- Message -->
       <svg
@@ -30,7 +30,7 @@
         stroke-width="1.5"
         stroke="currentColor"
         class="size-5"
-        *ngIf="todo.message.length > 0"
+        *ngIf="task.message.length > 0"
         (click)="isMessageShown = !isMessageShown; $event.preventDefault()"
       >
         <path
@@ -46,8 +46,8 @@
         viewBox="0 0 24 24"
         fill="currentColor"
         class="size-5"
-        *ngIf="todo.isFavourite"
-        (click)="('TODO toggle favourite'); $event.preventDefault()"
+        *ngIf="task.isFavourite"
+        (click)="toggleFavourite(); $event.preventDefault()"
       >
         <path
           d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
@@ -60,7 +60,7 @@
       *ngIf="isMessageShown"
       (click)="$event.preventDefault(); isMessageShown = !isMessageShown"
     >
-      {{ todo.message }}
+      {{ task.message }}
     </app-todo-message>
   </mat-checkbox>
 
@@ -90,6 +90,7 @@
       stroke-width="1.5"
       stroke="currentColor"
       class="size-6"
+      (click)="deleteTask(); $event.preventDefault()"
     >
       <path
         stroke-linecap="round"
@@ -124,7 +125,8 @@
         stroke-width="1.5"
         stroke="currentColor"
         class="size-6 cursor-pointer"
-        *ngIf="!todo.isFavourite"
+        *ngIf="!task.isFavourite"
+        (click)="toggleFavourite(); $event.preventDefault()"
       >
         <path
           stroke-linecap="round"
@@ -138,8 +140,8 @@
         viewBox="0 0 24 24"
         fill="currentColor"
         class="size-6"
-        *ngIf="todo.isFavourite"
-        (click)="('TODO toggle favourite'); $event.preventDefault()"
+        *ngIf="task.isFavourite"
+        (click)="toggleFavourite(); $event.preventDefault()"
       >
         <path
           d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
@@ -171,6 +173,7 @@
         stroke-width="1.5"
         stroke="currentColor"
         class="size-6 cursor-pointer"
+        (click)="duplicateTask(); $event.preventDefault()"
       >
         <path
           stroke-linecap="round"
@@ -199,9 +202,8 @@
     <!-- Message add/edit field -->
     <app-todo-message-form
       *ngIf="isMessageEditing"
-      [todo]="todo"
+      [task]="task"
       [(isEditing)]="isMessageEditing"
-      (click)="('(TODO save new if done was clicked if cancel do nothing)')"
     ></app-todo-message-form>
   </div>
 </span>

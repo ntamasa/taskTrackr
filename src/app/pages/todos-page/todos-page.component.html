@@ -10,14 +10,14 @@
   >
     <article>
       <h3 class="font-semibold text-lg">~ most important tasks</h3>
-      <app-todo-list [todos]="importantTodos"></app-todo-list>
+      <app-todo-list [type]="'important'"></app-todo-list>
     </article>
 
     <hr class="h-0.5 w-11/12 bg-indigo-300 mx-auto my-6" />
 
     <article>
       <h3 class="font-semibold text-lg">~ other tasks</h3>
-      <app-todo-list [todos]="otherTodos"></app-todo-list>
+      <app-todo-list [type]="'non-important'"></app-todo-list>
     </article>
   </section>
 
@@ -25,10 +25,7 @@
   <section
     class="w-full xl:w-3/4 grid grid-rows-4 grid-cols-1 md:grid-rows-2 md:grid-cols-2 2xl:grid-rows-1 2xl:grid-cols-4 justify-items-stretch gap-4 md:gap-6 items-center"
   >
-    <app-btn
-      (buttonClick)="isCreateMenuOpen = !isCreateMenuOpen"
-      class="text-center"
-    >
+    <app-btn (buttonClick)="openDialog()" class="text-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -85,7 +82,7 @@
       <span class="w-fit">Copy to date</span>
     </app-btn>
 
-    <app-btn class="text-center">
+    <app-btn class="text-center" (buttonClick)="clearDay()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -104,10 +101,12 @@
     </app-btn>
   </section>
 
+  <!-- Create new task -->
   <section *ngIf="isCreateMenuOpen">
     <app-create-task-form [(isOpen)]="isCreateMenuOpen"></app-create-task-form>
   </section>
 
+  <!-- Calendar -->
   <section
     *ngIf="isCalendarOpen"
     class="w-3/4 mt-10 flex flex-col justify-center items-center gap-4"
