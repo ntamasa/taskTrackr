@@ -11,7 +11,6 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
-import { TodosComponent } from './pages/todos/todos.component';
 import { PageHeadingComponent } from './components/page-heading/page-heading.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { BtnComponent } from './components/btn/btn.component';
@@ -50,7 +49,6 @@ import { TodosPageComponent } from './pages/todos-page/todos-page.component';
     LoginFormComponent,
     RegisterPageComponent,
     RegisterFormComponent,
-    TodosComponent,
     PageHeadingComponent,
     FilterComponent,
     BtnComponent,
