@@ -4,6 +4,10 @@ import { TaskService } from '../../services/taskService';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CreateTaskFormComponent } from '../../components/create-task-form/create-task-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { WeekService } from '../../services/weekService';
+import Week from '../../models/week';
+import { getWeek } from '../../utils/getWeek';
+import Day from '../../models/day';
 
 interface DayMessage {
   day: string;
@@ -18,7 +22,7 @@ interface DayMessage {
   styleUrl: './todos-page.component.css',
 })
 export class TodosPageComponent implements OnInit, OnDestroy {
-  weeks: DayMessage[] = [
+  weeksHeading: DayMessage[] = [
     {
       day: 'Monday',
       message: 'Start your week fresh - let your tasks bloom with purpose.',
@@ -49,21 +53,44 @@ export class TodosPageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  tasks: Todo[] = [];
+  // tasks: Todo[] = [];
+  weeks: Week[] = [];
   private sub!: Subscription;
 
-  currentDay: number = 0;
+  currentDate: Date = new Date();
+  currentWeek: Week = {} as Week;
+  days: Day[] = [];
+
+  currentDay: number = new Date().getDay() - 1;
 
   isCreateMenuOpen: boolean = false;
   isCalendarOpen: boolean = false;
 
-  constructor(private taskService: TaskService, public dialog: MatDialog) {
-    this.sub = this.taskService.data$.subscribe((tasks) => {
-      this.tasks = tasks;
-    });
-  }
+  constructor(
+    private weekService: WeekService,
+    // private taskService: TaskService,
+    public dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sub = this.weekService.data$.subscribe((weeks) => {
+      this.weeks = weeks;
+      this.days = this.currentWeek.days;
+    });
+
+    // Set current week
+    this.currentWeek =
+      this.weeks.find(
+        (week) =>
+          week.id ===
+          +`${this.currentDate.getFullYear()}${this.currentDate.getMonth()}${getWeek(
+            this.currentDate
+          )}`
+      ) || ({} as Week);
+
+    // Set days
+    this.days = this.currentWeek.days;
+  }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -74,6 +101,6 @@ export class TodosPageComponent implements OnInit, OnDestroy {
   }
 
   clearDay(): void {
-    this.taskService.clearTasks();
+    // this.taskService.clearTasks();
   }
 }

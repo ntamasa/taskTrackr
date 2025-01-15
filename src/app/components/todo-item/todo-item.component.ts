@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import Todo from '../../models/todo';
 import { TaskService } from '../../services/taskService';
+import { WeekService } from '../../services/weekService';
 
 @Component({
   selector: 'app-todo-item',
@@ -26,24 +27,24 @@ export class TodoItemComponent implements OnInit {
   isMessageShown: boolean = false;
   isMessageEditing: boolean = false;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private weekService: WeekService) {}
 
   ngOnInit(): void {}
 
   toggleFavourite(): void {
-    this.taskService.toggleFavourite(this.task.id);
+    this.weekService.toggleFavourite(this.task.id);
   }
 
   deleteTask(): void {
-    this.taskService.deleteTask(this.task.id);
+    // this.taskService.deleteTask(this.task.id);
   }
 
   finishTask(): void {
-    this.taskService.finishTask(this.task.id);
+    // this.taskService.finishTask(this.task.id);
   }
 
   duplicateTask(): void {
     this.isOpen = false;
-    this.taskService.duplicateTask(this.task.id);
+    // this.taskService.duplicateTask(this.task.id);
   }
 }

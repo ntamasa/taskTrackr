@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import Todo from '../models/todo';
 import { mockTasks } from '../mockTasks';
 import { BehaviorSubject, filter } from 'rxjs';
+import { DayService } from './dayService';
+import { WeekService } from './weekService';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
@@ -10,17 +12,23 @@ export class TaskService {
   );
   data$ = this.tasks.asObservable();
 
-  constructor() {
-    this.tasks.next(mockTasks);
+  constructor(
+    private dayService: DayService,
+    private weekService: WeekService
+  ) {
+    this.tasks.next(
+      this.weekService.getCurrentWeek().days[new Date().getDay()].tasks
+    );
   }
 
   toggleFavourite(id: number): void {
     const currentTasks = this.tasks.getValue();
-    this.tasks.next(
-      currentTasks.map((task) =>
-        task.id === id ? { ...task, isFavourite: !task.isFavourite } : task
-      )
+    const newTasks = currentTasks.map((task) =>
+      task.id === id ? { ...task, isFavourite: !task.isFavourite } : task
     );
+    this.dayService.toggleFavourite(newTasks);
+    this.tasks.next(newTasks);
+    console.log(newTasks, currentTasks);
   }
 
   addTask(text: string, importance: string): void {
