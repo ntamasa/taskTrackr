@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import Todo from '../../models/todo';
-import { TaskService } from '../../services/taskService';
 import { WeekService } from '../../services/weekService';
 
 @Component({

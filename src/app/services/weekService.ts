@@ -20,22 +20,17 @@ export class WeekService {
   toggleFavourite(id: number): void {
     const currentWeeks = this.weeks.getValue();
     const currentWeek = this.getCurrentWeek();
-    const currentDay: Day =
-      currentWeek.days.find((day) =>
-        day.tasks.find((task) => task.id === id)
-      ) || ({} as Day);
 
-    const updatedTasks = currentDay.tasks.map((task) =>
-      task.id === id ? { ...task, isFavourite: !task.isFavourite } : task
-    );
-
-    const updatedDays = currentWeek.days.map((day) =>
-      day === currentDay ? { ...day, tasks: updatedTasks } : day
-    );
+    const updatedDays = currentWeek.days.map((day) => {
+      const updatedTasks = day.tasks.map((task) =>
+        task.id === id ? { ...task, isFavourite: !task.isFavourite } : task
+      );
+      return { ...day, tasks: updatedTasks };
+    });
 
     const updatedWeek = { ...currentWeek, days: updatedDays };
     const updatedWeeks = currentWeeks.map((week) =>
-      week === currentWeek ? updatedWeek : week
+      week.id === updatedWeek.id ? updatedWeek : week
     );
 
     this.weeks.next(updatedWeeks);

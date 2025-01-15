@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import Todo from '../../models/todo';
 import { FormControl } from '@angular/forms';
-import { TaskService } from '../../services/taskService';
+import { WeekService } from '../../services/weekService';
 
 @Component({
   selector: 'app-todo-message-form',
@@ -25,7 +25,7 @@ export class TodoMessageFormComponent implements OnInit {
 
   message: string = this.task.message;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private weekService: WeekService) {}
 
   ngOnInit(): void {
     this.message = this.task.message;
@@ -33,7 +33,7 @@ export class TodoMessageFormComponent implements OnInit {
 
   handleSubmit(): void {
     this.isEditing = false;
-    this.taskService.updateMessage(this.task.id, this.message);
+    // this.taskService.updateMessage(this.task.id, this.message);
   }
 
   handleCancel(): void {

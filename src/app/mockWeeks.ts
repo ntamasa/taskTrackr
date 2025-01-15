@@ -94,7 +94,7 @@ export const mockWeeks: Week[] = [
         name: 'Wednesday',
         tasks: [
           {
-            id: 12345,
+            id: 41234,
             text: 'projekt munka',
             done: false,
             isImportant: true,
@@ -102,7 +102,7 @@ export const mockWeeks: Week[] = [
             message: '',
           },
           {
-            id: 245678,
+            id: 323532,
             text: 'edzés',
             done: false,
             isImportant: true,
@@ -132,7 +132,7 @@ export const mockWeeks: Week[] = [
         name: 'Thursday',
         tasks: [
           {
-            id: 16785,
+            id: 214,
             text: 'MOSOGASS 💀💀💀',
             done: false,
             isImportant: true,
@@ -140,7 +140,7 @@ export const mockWeeks: Week[] = [
             message: 'NE LEGYÉL LUSTAAAA',
           },
           {
-            id: 21023,
+            id: 41234,
             text: 'projekt munka',
             done: false,
             isImportant: true,
@@ -148,7 +148,7 @@ export const mockWeeks: Week[] = [
             message: '',
           },
           {
-            id: 30123,
+            id: 323532,
             text: 'edzés',
             done: false,
             isImportant: true,
@@ -162,7 +162,7 @@ export const mockWeeks: Week[] = [
         name: 'Friday',
         tasks: [
           {
-            id: 15678,
+            id: 41234,
             text: 'projekt munka',
             done: false,
             isImportant: true,
@@ -170,8 +170,8 @@ export const mockWeeks: Week[] = [
             message: '',
           },
           {
-            id: 212345,
-            text: 'edézs',
+            id: 323532,
+            text: 'edzés',
             done: false,
             isImportant: true,
             isFavourite: true,
@@ -192,7 +192,7 @@ export const mockWeeks: Week[] = [
         name: 'Saturday',
         tasks: [
           {
-            id: 14568,
+            id: 214,
             text: 'MOSOGASS 💀💀💀',
             done: false,
             isImportant: true,
@@ -200,7 +200,7 @@ export const mockWeeks: Week[] = [
             message: 'ha skippeled +1 lábnap',
           },
           {
-            id: 2453,
+            id: 41234,
             text: 'projekt munka',
             done: false,
             isImportant: true,
@@ -230,7 +230,7 @@ export const mockWeeks: Week[] = [
         name: 'Sunday',
         tasks: [
           {
-            id: 1123457,
+            id: 41234,
             text: 'projekt munka',
             done: false,
             isImportant: true,
@@ -297,7 +297,7 @@ export const mockWeeks: Week[] = [
         name: 'Tuesday',
         tasks: [
           {
-            id: 11234,
+            id: 16795,
             text: 'ne rugj be pls',
             done: false,
             isImportant: true,
@@ -311,7 +311,7 @@ export const mockWeeks: Week[] = [
         name: 'Wednesday',
         tasks: [
           {
-            id: 15678,
+            id: 16795,
             text: 'ne rugj be pls',
             done: false,
             isImportant: true,
@@ -325,7 +325,7 @@ export const mockWeeks: Week[] = [
         name: 'Thursday',
         tasks: [
           {
-            id: 1231,
+            id: 16795,
             text: 'ne rugj be pls',
             done: false,
             isImportant: true,
@@ -339,7 +339,7 @@ export const mockWeeks: Week[] = [
         name: 'Friday',
         tasks: [
           {
-            id: 14134623456,
+            id: 16795,
             text: 'ne rugj be pls',
             done: false,
             isImportant: true,
@@ -353,7 +353,7 @@ export const mockWeeks: Week[] = [
         name: 'Saturday',
         tasks: [
           {
-            id: 156787,
+            id: 16795,
             text: 'ne rugj be pls',
             done: false,
             isImportant: true,
@@ -367,7 +367,7 @@ export const mockWeeks: Week[] = [
         name: 'Sunday',
         tasks: [
           {
-            id: 101236,
+            id: 16795,
             text: 'ne rugj be pls',
             done: false,
             isImportant: true,

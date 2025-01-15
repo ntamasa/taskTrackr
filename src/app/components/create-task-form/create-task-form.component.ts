@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TaskService } from '../../services/taskService';
+import { WeekService } from '../../services/weekService';
 
 @Component({
   selector: 'app-create-task-form',
@@ -15,13 +15,13 @@ export class CreateTaskFormComponent implements OnInit {
   importance: string = 'important';
   text: string = '';
 
-  constructor(private taskService: TaskService) {}
+  constructor(private weekService: WeekService) {}
 
   ngOnInit(): void {}
 
   handleSubmit(): void {
     this.isOpen = false;
-    this.taskService.addTask(this.text, this.importance);
+    // this.taskService.addTask(this.text, this.importance);
   }
 
   handleCancel(): void {

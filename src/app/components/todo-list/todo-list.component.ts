@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import Todo from '../../models/todo';
-import { TaskService } from '../../services/taskService';
 import { Observable, Subscription } from 'rxjs';
 import { WeekService } from '../../services/weekService';
 import Week from '../../models/week';

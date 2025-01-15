@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import Todo from '../../models/todo';
-import { TaskService } from '../../services/taskService';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CreateTaskFormComponent } from '../../components/create-task-form/create-task-form.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -66,11 +65,7 @@ export class TodosPageComponent implements OnInit, OnDestroy {
   isCreateMenuOpen: boolean = false;
   isCalendarOpen: boolean = false;
 
-  constructor(
-    private weekService: WeekService,
-    // private taskService: TaskService,
-    public dialog: MatDialog
-  ) {}
+  constructor(private weekService: WeekService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.sub = this.weekService.data$.subscribe((weeks) => {

@@ -5,7 +5,7 @@
   </app-page-heading>
 
   <!-- To-do list -->
-  <mat-tab-group class="w-3/4">
+  <mat-tab-group class="w-3/4" [selectedIndex]="currentDay">
     <mat-tab
       *ngFor="let day of days; let i = index"
       [label]="weeksHeading[i].day"
