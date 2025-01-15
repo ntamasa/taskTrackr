@@ -31,7 +31,7 @@
         stroke="currentColor"
         class="size-5"
         *ngIf="task.message.length > 0"
-        (click)="isMessageShown = !isMessageShown; $event.preventDefault()"
+        (click)="openMessageDialog(); $event.preventDefault()"
       >
         <path
           stroke-linecap="round"
@@ -54,14 +54,6 @@
         />
       </svg>
     </div>
-
-    <!-- Message -->
-    <app-todo-message
-      *ngIf="isMessageShown"
-      (click)="$event.preventDefault(); isMessageShown = !isMessageShown"
-    >
-      {{ task.message }}
-    </app-todo-message>
   </mat-checkbox>
 
   <div class="flex flex-row w-fit ml-2 cursor-pointer">
@@ -156,7 +148,7 @@
         stroke-width="1.5"
         stroke="currentColor"
         class="size-6 cursor-pointer"
-        (click)="isMessageEditing = !isMessageEditing"
+        (click)="openModifyDialog()"
       >
         <path
           stroke-linecap="round"
@@ -198,12 +190,5 @@
         />
       </svg>
     </div>
-
-    <!-- Message add/edit field -->
-    <app-todo-message-form
-      *ngIf="isMessageEditing"
-      [task]="task"
-      [(isEditing)]="isMessageEditing"
-    ></app-todo-message-form>
   </div>
 </span>

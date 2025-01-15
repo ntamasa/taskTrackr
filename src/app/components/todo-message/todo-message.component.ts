@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-todo-message',
@@ -8,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './todo-message.component.css',
 })
 export class TodoMessageComponent implements OnInit {
-  constructor() {}
+  message: string = '';
 
-  ngOnInit(): void {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  ngOnInit(): void {
+    this.message = this.data.message;
+  }
 }

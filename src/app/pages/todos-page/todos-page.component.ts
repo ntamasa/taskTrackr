@@ -62,7 +62,6 @@ export class TodosPageComponent implements OnInit, OnDestroy {
 
   currentDay: number = new Date().getDay() - 1;
 
-  isCreateMenuOpen: boolean = false;
   isCalendarOpen: boolean = false;
 
   constructor(private weekService: WeekService, public dialog: MatDialog) {}

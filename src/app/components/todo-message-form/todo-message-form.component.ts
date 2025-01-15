@@ -1,7 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import Todo from '../../models/todo';
 import { FormControl } from '@angular/forms';
 import { WeekService } from '../../services/weekService';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-todo-message-form',
@@ -11,7 +19,7 @@ import { WeekService } from '../../services/weekService';
   styleUrl: './todo-message-form.component.css',
 })
 export class TodoMessageFormComponent implements OnInit {
-  @Input() task: Todo = {
+  task: Todo = {
     id: 0,
     text: '',
     done: false,
@@ -19,25 +27,19 @@ export class TodoMessageFormComponent implements OnInit {
     isFavourite: false,
     message: '',
   };
-  @Input() isEditing: boolean = false;
-  @Output() isEditingChange: EventEmitter<boolean> =
-    new EventEmitter<boolean>();
 
   message: string = this.task.message;
 
-  constructor(private weekService: WeekService) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
+    this.task = this.data;
     this.message = this.task.message;
   }
 
   handleSubmit(): void {
-    this.isEditing = false;
     // this.taskService.updateMessage(this.task.id, this.message);
   }
 
-  handleCancel(): void {
-    this.isEditing = false;
-    this.isEditingChange.emit(this.isEditing);
-  }
+  handleCancel(): void {}
 }

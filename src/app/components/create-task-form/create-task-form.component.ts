@@ -9,9 +9,6 @@ import { WeekService } from '../../services/weekService';
   styleUrl: './create-task-form.component.css',
 })
 export class CreateTaskFormComponent implements OnInit {
-  @Input() isOpen: boolean = false;
-  @Output() isOpenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   importance: string = 'important';
   text: string = '';
 
@@ -20,12 +17,8 @@ export class CreateTaskFormComponent implements OnInit {
   ngOnInit(): void {}
 
   handleSubmit(): void {
-    this.isOpen = false;
     // this.taskService.addTask(this.text, this.importance);
   }
 
-  handleCancel(): void {
-    this.isOpen = false;
-    this.isOpenChange.emit(this.isOpen);
-  }
+  handleCancel(): void {}
 }
