@@ -55,6 +55,28 @@ export class WeekService {
     this.weeks.next(updatedWeeks);
   }
 
+  deleteTask(id: number): void {
+    const currentWeeks = this.weeks.getValue();
+    const currentWeek = this.getCurrentWeek();
+    const currentDay = currentWeek.days.find(
+      (day) => day.id === new Date().getDay()
+    ) as Day;
+
+    const updatedTasks = currentDay.tasks.filter((task) => task.id !== id);
+    console.log(updatedTasks);
+
+    const updatedDays: Day[] = currentWeek.days.map((day) =>
+      day === currentDay ? { ...day, tasks: updatedTasks } : day
+    );
+
+    const updatedWeek = { ...currentWeek, days: updatedDays };
+    const updatedWeeks = currentWeeks.map((week) =>
+      week.id === updatedWeek.id ? updatedWeek : week
+    );
+
+    this.weeks.next(updatedWeeks);
+  }
+
   getCurrentWeek(): Week {
     return this.weeks
       .getValue()

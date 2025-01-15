@@ -36,7 +36,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   deleteTask(): void {
-    // this.taskService.deleteTask(this.task.id);
+    this.weekService.deleteTask(this.task.id);
   }
 
   finishTask(): void {
