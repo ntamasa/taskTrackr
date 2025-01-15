@@ -1,13 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  Inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import Todo from '../../models/todo';
-import { FormControl } from '@angular/forms';
 import { WeekService } from '../../services/weekService';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -30,7 +22,10 @@ export class TodoMessageFormComponent implements OnInit {
 
   message: string = this.task.message;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private weekService: WeekService
+  ) {}
 
   ngOnInit(): void {
     this.task = this.data;
@@ -38,6 +33,7 @@ export class TodoMessageFormComponent implements OnInit {
   }
 
   handleSubmit(): void {
+    this.weekService.updateMessage(this.task.id, this.message);
     // this.taskService.updateMessage(this.task.id, this.message);
   }
 

@@ -36,6 +36,25 @@ export class WeekService {
     this.weeks.next(updatedWeeks);
   }
 
+  updateMessage(id: number, message: string): void {
+    const currentWeeks = this.weeks.getValue();
+    const currentWeek = this.getCurrentWeek();
+
+    const updatedDays = currentWeek.days.map((day) => {
+      const updatedTasks = day.tasks.map((task) =>
+        task.id === id ? { ...task, message } : task
+      );
+      return { ...day, tasks: updatedTasks };
+    });
+
+    const updatedWeek = { ...currentWeek, days: updatedDays };
+    const updatedWeeks = currentWeeks.map((week) =>
+      week.id === updatedWeek.id ? updatedWeek : week
+    );
+
+    this.weeks.next(updatedWeeks);
+  }
+
   getCurrentWeek(): Week {
     return this.weeks
       .getValue()
