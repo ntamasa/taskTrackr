@@ -32,7 +32,7 @@ export class TodoItemComponent implements OnInit {
   ngOnInit(): void {}
 
   toggleFavourite(): void {
-    this.weekService.toggleFavourite(this.task.id);
+    this.weekService.toggleFavourite(this.task.text);
   }
 
   deleteTask(): void {
@@ -45,7 +45,7 @@ export class TodoItemComponent implements OnInit {
 
   duplicateTask(): void {
     this.isOpen = false;
-    // this.taskService.duplicateTask(this.task.id);
+    this.weekService.duplicateTask(this.task.id);
   }
 
   openMessageDialog(): void {

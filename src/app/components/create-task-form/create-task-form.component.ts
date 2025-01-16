@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WeekService } from '../../services/weekService';
+import Todo from '../../models/todo';
 
 @Component({
   selector: 'app-create-task-form',
@@ -17,7 +18,14 @@ export class CreateTaskFormComponent implements OnInit {
   ngOnInit(): void {}
 
   handleSubmit(): void {
-    // this.weekService.(this.text, this.importance);
+    this.weekService.addTask({
+      id: new Date().getTime(),
+      text: this.text,
+      done: false,
+      isImportant: this.importance === 'important',
+      isFavourite: false,
+      message: '',
+    } as Todo);
   }
 
   handleCancel(): void {}

@@ -17,13 +17,13 @@ export class WeekService {
     this.weeks.next(mockWeeks);
   }
 
-  toggleFavourite(id: number): void {
+  toggleFavourite(text: string): void {
     const currentWeeks = this.weeks.getValue();
     const currentWeek = this.getCurrentWeek();
 
     const updatedDays = currentWeek.days.map((day) => {
       const updatedTasks = day.tasks.map((task) =>
-        task.id === id ? { ...task, isFavourite: !task.isFavourite } : task
+        task.text === text ? { ...task, isFavourite: !task.isFavourite } : task
       );
       return { ...day, tasks: updatedTasks };
     });
@@ -46,6 +46,50 @@ export class WeekService {
       );
       return { ...day, tasks: updatedTasks };
     });
+
+    const updatedWeek = { ...currentWeek, days: updatedDays };
+    const updatedWeeks = currentWeeks.map((week) =>
+      week.id === updatedWeek.id ? updatedWeek : week
+    );
+
+    this.weeks.next(updatedWeeks);
+  }
+
+  duplicateTask(id: number): void {
+    const currentWeeks = this.weeks.getValue();
+    const currentWeek = this.getCurrentWeek();
+    const currentDay = currentWeek.days.find(
+      (day) => day.id === new Date().getDay()
+    ) as Day;
+
+    const taskToDuplicate = currentDay.tasks.find((task) => task.id === id);
+
+    if (taskToDuplicate) {
+      const updatedTasks = [...currentDay.tasks, { ...taskToDuplicate }];
+      const updatedDays: Day[] = currentWeek.days.map((day) =>
+        day === currentDay ? { ...day, tasks: updatedTasks } : day
+      );
+
+      const updatedWeek = { ...currentWeek, days: updatedDays };
+      const updatedWeeks = currentWeeks.map((week) =>
+        week.id === updatedWeek.id ? updatedWeek : week
+      );
+
+      this.weeks.next(updatedWeeks);
+    }
+  }
+
+  addTask(task: Todo): void {
+    const currentWeeks = this.weeks.getValue();
+    const currentWeek = this.getCurrentWeek();
+    const currentDay = currentWeek.days.find(
+      (day) => day.id === new Date().getDay()
+    ) as Day;
+
+    const updatedTasks = [...currentDay.tasks, task];
+    const updatedDays: Day[] = currentWeek.days.map((day) =>
+      day === currentDay ? { ...day, tasks: updatedTasks } : day
+    );
 
     const updatedWeek = { ...currentWeek, days: updatedDays };
     const updatedWeeks = currentWeeks.map((week) =>
