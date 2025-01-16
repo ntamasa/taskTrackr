@@ -66,6 +66,7 @@ export class TodosPageComponent implements OnInit, OnDestroy {
 
   constructor(private weekService: WeekService, public dialog: MatDialog) {}
 
+  // FIX days is not in sync
   ngOnInit(): void {
     this.sub = this.weekService.data$.subscribe((weeks) => {
       this.weeks = weeks;
@@ -90,11 +91,15 @@ export class TodosPageComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  openDialog(): void {
-    this.dialog.open(CreateTaskFormComponent);
+  openDialog(dayIndex: number): void {
+    this.dialog.open(CreateTaskFormComponent, { data: dayIndex });
   }
 
-  clearDay(): void {
-    // this.taskService.clearTasks();
+  clearDay(day: Day): void {
+    this.weekService.clearDay(day);
+  }
+
+  copyToNextDay(day: Day): void {
+    this.weekService.copyTasksToNextDay(day);
   }
 }

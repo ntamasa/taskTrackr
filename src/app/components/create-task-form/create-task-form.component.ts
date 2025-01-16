@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { WeekService } from '../../services/weekService';
 import Todo from '../../models/todo';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-task-form',
@@ -13,19 +14,25 @@ export class CreateTaskFormComponent implements OnInit {
   importance: string = 'important';
   text: string = '';
 
-  constructor(private weekService: WeekService) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private weekService: WeekService
+  ) {}
 
   ngOnInit(): void {}
 
   handleSubmit(): void {
-    this.weekService.addTask({
-      id: new Date().getTime(),
-      text: this.text,
-      done: false,
-      isImportant: this.importance === 'important',
-      isFavourite: false,
-      message: '',
-    } as Todo);
+    this.weekService.addTask(
+      {
+        id: new Date().getTime(),
+        text: this.text,
+        done: false,
+        isImportant: this.importance === 'important',
+        isFavourite: false,
+        message: '',
+      } as Todo,
+      this.data
+    );
   }
 
   handleCancel(): void {}

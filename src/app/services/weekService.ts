@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵgetUnknownPropertyStrictMode } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import Week from '../models/week';
 import { mockWeeks } from '../mockWeeks';
@@ -67,17 +67,18 @@ export class WeekService {
     this.weeks.next(updatedWeeks);
   }
 
-  duplicateTask(id: number): void {
+  duplicateTask(id: number, dayId: number): void {
     const currentWeeks = this.weeks.getValue();
     const currentWeek = this.getCurrentWeek();
-    const currentDay = currentWeek.days.find(
-      (day) => day.id === new Date().getDay()
-    ) as Day;
+    const currentDay = currentWeek.days.find((day) => day.id === dayId) as Day;
 
     const taskToDuplicate = currentDay.tasks.find((task) => task.id === id);
 
     if (taskToDuplicate) {
-      const updatedTasks = [...currentDay.tasks, { ...taskToDuplicate }];
+      const updatedTasks = [
+        ...currentDay.tasks,
+        { ...taskToDuplicate, text: taskToDuplicate.text + ' (copy)' },
+      ];
       const updatedDays: Day[] = currentWeek.days.map((day) =>
         day === currentDay ? { ...day, tasks: updatedTasks } : day
       );
@@ -139,14 +140,30 @@ export class WeekService {
     }
   }
 
-  addTask(task: Todo): void {
+  addTask(task: Todo, dayIndex: number): void {
     const currentWeeks = this.weeks.getValue();
     const currentWeek = this.getCurrentWeek();
-    const currentDay = currentWeek.days.find(
-      (day) => day.id === new Date().getDay()
-    ) as Day;
+    const currentDay = currentWeek.days[dayIndex];
 
     const updatedTasks = [...currentDay.tasks, task];
+    const updatedDays: Day[] = currentWeek.days.map((day) =>
+      day === currentDay ? { ...day, tasks: updatedTasks } : day
+    );
+
+    const updatedWeek = { ...currentWeek, days: updatedDays };
+    const updatedWeeks = currentWeeks.map((week) =>
+      week.id === updatedWeek.id ? updatedWeek : week
+    );
+    this.weeks.next(updatedWeeks);
+  }
+
+  deleteTask(text: string, dayId: number): void {
+    const currentWeeks = this.weeks.getValue();
+    const currentWeek = this.getCurrentWeek();
+    const currentDay = currentWeek.days.find((day) => day.id === dayId) as Day;
+
+    const updatedTasks = currentDay.tasks.filter((task) => task.text !== text);
+
     const updatedDays: Day[] = currentWeek.days.map((day) =>
       day === currentDay ? { ...day, tasks: updatedTasks } : day
     );
@@ -159,18 +176,36 @@ export class WeekService {
     this.weeks.next(updatedWeeks);
   }
 
-  deleteTask(id: number): void {
+  clearDay(currentDay: Day): void {
     const currentWeeks = this.weeks.getValue();
     const currentWeek = this.getCurrentWeek();
-    const currentDay = currentWeek.days.find(
-      (day) => day.id === new Date().getDay()
-    ) as Day;
 
-    const updatedTasks = currentDay.tasks.filter((task) => task.id !== id);
-    console.log(updatedTasks);
+    const updatedDays = currentWeek.days.map((day) =>
+      day.id === currentDay.id ? { ...currentDay, tasks: [] } : day
+    );
+    const updatedWeek = { ...currentWeek, days: updatedDays };
+    const updatedWeeks = currentWeeks.map((week) =>
+      week.id === updatedWeek.id ? updatedWeek : week
+    );
 
-    const updatedDays: Day[] = currentWeek.days.map((day) =>
-      day === currentDay ? { ...day, tasks: updatedTasks } : day
+    this.weeks.next(updatedWeeks);
+  }
+
+  copyTasksToNextDay(day: Day): void {
+    const currentWeeks = this.weeks.getValue();
+    const currentWeek = this.getCurrentWeek();
+    const currentDayIndex = currentWeek.days.findIndex(
+      (currentDay) => currentDay.id === day.id
+    );
+
+    const nextDayIndex = currentDayIndex === 6 ? 0 : currentDayIndex + 1;
+    const nextDay = currentWeek.days[nextDayIndex];
+
+    const updatedTasks = [...nextDay.tasks, ...day.tasks];
+    const updatedDays = currentWeek.days.map((currentDay) =>
+      currentDay === nextDay
+        ? { ...currentDay, tasks: updatedTasks }
+        : currentDay
     );
 
     const updatedWeek = { ...currentWeek, days: updatedDays };

@@ -23,6 +23,7 @@ export class TodoItemComponent implements OnInit {
     isFavourite: false,
     message: '',
   };
+  @Input() dayId: number = 0;
 
   @Output() delete: EventEmitter<number> = new EventEmitter<number>();
 
@@ -37,7 +38,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   deleteTask(): void {
-    this.weekService.deleteTask(this.task.id);
+    this.weekService.deleteTask(this.task.text, this.dayId);
   }
 
   finishTask(): void {
@@ -46,7 +47,7 @@ export class TodoItemComponent implements OnInit {
 
   duplicateTask(): void {
     this.isOpen = false;
-    this.weekService.duplicateTask(this.task.id);
+    this.weekService.duplicateTask(this.task.id, this.dayId);
   }
 
   openMessageDialog(): void {
