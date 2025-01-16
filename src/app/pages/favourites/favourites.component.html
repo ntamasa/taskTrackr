@@ -99,7 +99,7 @@
               class="text-indigo-800 text-4xl font-semibold w-full mb-10 leading-tight text-center"
             >
               <p
-                *ngIf="week.isDeafult"
+                *ngIf="week.isDefault"
                 class="text-sm text-pink-500 font-extralight"
               >
                 Default
@@ -132,7 +132,7 @@
               <app-btn
                 (buttonClick)="('TODO')"
                 class="text-center"
-                *ngIf="!week.isDeafult"
+                *ngIf="!week.isDefault"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

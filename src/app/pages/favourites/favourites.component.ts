@@ -356,7 +356,7 @@ export class FavouritesComponent implements OnInit {
           ],
         },
       ],
-      isDeafult: true,
+      isDefault: true,
     },
     {
       id: 1,
@@ -461,7 +461,7 @@ export class FavouritesComponent implements OnInit {
           ],
         },
       ],
-      isDeafult: false,
+      isDefault: false,
     },
   ];
   filteredWeeks: Week[] = this.weeks;

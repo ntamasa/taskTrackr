@@ -1,3 +1,26 @@
-<mat-card class="demo-inline-calendar-card">
-  <mat-calendar [(selected)]="selected"></mat-calendar>
-</mat-card>
+<div class="bg-indigo-50">
+  <mat-dialog-content>
+    <mat-card class="demo-inline-calendar-card">
+      <mat-calendar [(selected)]="selected"></mat-calendar>
+    </mat-card>
+    <mat-dialog-actions align="start">
+      <button
+        mat-button
+        [mat-dialog-close]="true"
+        cdkFocusInitial
+        class="px-4 py-2 rounded-lg bg-indigo-800 hover:bg-indigo-900 transition duration-300 text-slate-100 font-medium -ml-2 mt-5 mr-4"
+        type="submit"
+        (click)="$event.preventDefault(); handleSubmit()"
+      >
+        Done
+      </button>
+      <button
+        mat-button
+        mat-dialog-close
+        class="px-4 py-2 rounded-lg bg-indigo-800 hover:bg-indigo-900 transition duration-300 shadow-md text-slate-100 font-medium z-50 mt-5"
+      >
+        Cancel
+      </button>
+    </mat-dialog-actions>
+  </mat-dialog-content>
+</div>

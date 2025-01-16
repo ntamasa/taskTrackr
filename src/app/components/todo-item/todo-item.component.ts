@@ -6,6 +6,7 @@ import { WeekService } from '../../services/weekService';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoMessageFormComponent } from '../todo-message-form/todo-message-form.component';
 import { TodoMessageComponent } from '../todo-message/todo-message.component';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 @Component({
   selector: 'app-todo-item',
@@ -54,5 +55,9 @@ export class TodoItemComponent implements OnInit {
 
   openModifyDialog(): void {
     this.dialog.open(TodoMessageFormComponent, { data: this.task });
+  }
+
+  openCalendarDialog(): void {
+    this.dialog.open(CalendarComponent, { data: this.task });
   }
 }

@@ -272,7 +272,7 @@ export const mockWeeks: Week[] = [
         ],
       },
     ],
-    isDeafult: true,
+    isDefault: true,
   },
   {
     id: 1,
@@ -377,6 +377,6 @@ export const mockWeeks: Week[] = [
         ],
       },
     ],
-    isDeafult: false,
+    isDefault: false,
   },
 ];
