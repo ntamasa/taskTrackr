@@ -7,6 +7,7 @@ import { WeekService } from '../../services/weekService';
 import Week from '../../models/week';
 import { getWeek } from '../../utils/getWeek';
 import Day from '../../models/day';
+import { CalendarComponent } from '../../components/calendar/calendar.component';
 
 interface DayMessage {
   day: string;
@@ -52,7 +53,6 @@ export class TodosPageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  // tasks: Todo[] = [];
   weeks: Week[] = [];
   private sub!: Subscription;
 
@@ -66,7 +66,6 @@ export class TodosPageComponent implements OnInit, OnDestroy {
 
   constructor(private weekService: WeekService, public dialog: MatDialog) {}
 
-  // FIX days is not in sync
   ngOnInit(): void {
     this.sub = this.weekService.data$.subscribe((weeks) => {
       this.weeks = weeks;
@@ -93,6 +92,10 @@ export class TodosPageComponent implements OnInit, OnDestroy {
 
   openDialog(dayIndex: number): void {
     this.dialog.open(CreateTaskFormComponent, { data: dayIndex });
+  }
+
+  openCalendarDialog(dayIndex: number): void {
+    this.dialog.open(CalendarComponent, { data: dayIndex });
   }
 
   clearDay(day: Day): void {

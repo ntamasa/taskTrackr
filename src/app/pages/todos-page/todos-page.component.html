@@ -70,7 +70,9 @@
         </app-btn>
 
         <app-btn
-          (buttonClick)="isCalendarOpen = !isCalendarOpen"
+          (buttonClick)="
+            isCalendarOpen = !isCalendarOpen; openCalendarDialog(i)
+          "
           class="text-center"
         >
           <svg

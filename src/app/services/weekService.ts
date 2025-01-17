@@ -140,6 +140,59 @@ export class WeekService {
     }
   }
 
+  copyDayToDate(selected: Date, dayIndex: any): void {
+    // check if selected week already exists
+    const selectedWeek = this.getWeek(selected);
+
+    const currentWeek = this.getCurrentWeek();
+    const currentTasks = currentWeek.days[dayIndex].tasks;
+    const currentTaskNames = currentTasks.map((task) => task.text);
+
+    // true -> get targeted week and add current to the already existing tasks
+    if (selectedWeek) {
+      const updatedDays = selectedWeek.days.map((day) =>
+        day.id === (selected.getDay() === 0 ? 7 : selected.getDay())
+          ? {
+              ...day,
+              tasks: [
+                ...day.tasks.filter(
+                  (task) => !currentTaskNames.includes(task.text)
+                ),
+                ...currentTasks,
+              ],
+            }
+          : day
+      );
+
+      const updatedWeek = { ...selectedWeek, days: updatedDays };
+      const updatedWeeks = this.weeks
+        .getValue()
+        .map((week) => (week.id === updatedWeek.id ? updatedWeek : week));
+
+      this.weeks.next(updatedWeeks);
+
+      // false -> create new week with empty days and tasks, and paste current tasks to selected day
+    } else {
+      const updatedDays = WEEKDAYS.map((day, i) => ({
+        id: i + 1,
+        name: day,
+        tasks: i === selected.getDay() - 1 ? currentTasks : [],
+      }));
+
+      const newWeek = {
+        id: +`${selected.getFullYear()}${selected.getMonth()}${getWeek(
+          selected
+        )}`,
+        name: [selected.getFullYear(), getWeek(selected)].join('-'),
+        days: updatedDays,
+        isDefault: false,
+      } as Week;
+      const updatedWeeks = [...this.weeks.getValue(), newWeek];
+
+      this.weeks.next(updatedWeeks);
+    }
+  }
+
   addTask(task: Todo, dayIndex: number): void {
     const currentWeeks = this.weeks.getValue();
     const currentWeek = this.getCurrentWeek();

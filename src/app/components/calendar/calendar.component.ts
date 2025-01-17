@@ -21,6 +21,9 @@ export class CalendarComponent implements OnInit {
   }
 
   handleSubmit(): void {
-    this.weekService.copyTaskToDate(this.selected, this.data);
+    // check for data type
+    if (typeof this.data === 'object')
+      this.weekService.copyTaskToDate(this.selected, this.data);
+    else this.weekService.copyDayToDate(this.selected, this.data);
   }
 }
