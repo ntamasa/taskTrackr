@@ -10,7 +10,7 @@ import { getWeek } from '../../utils/getWeek';
   standalone: false,
 
   templateUrl: './todo-list.component.html',
-  styleUrl: './todo-list.component.css',
+  styleUrl: './todo-list.component.scss',
 })
 export class TodoListComponent implements OnInit, OnDestroy {
   // @Input() todos: Todo[] = [];

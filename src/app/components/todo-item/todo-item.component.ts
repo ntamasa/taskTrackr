@@ -12,7 +12,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
   selector: 'app-todo-item',
   standalone: false,
   templateUrl: './todo-item.component.html',
-  styleUrl: './todo-item.component.css',
+  styleUrl: './todo-item.component.scss',
 })
 export class TodoItemComponent implements OnInit {
   @Input() task: Todo = {
@@ -54,8 +54,16 @@ export class TodoItemComponent implements OnInit {
     this.dialog.open(TodoMessageComponent, { data: this.task });
   }
 
+  openAddMessageDialog(): void {
+    this.dialog.open(TodoMessageFormComponent, {
+      data: { task: this.task, action: 'add-message' },
+    });
+  }
+
   openModifyDialog(): void {
-    this.dialog.open(TodoMessageFormComponent, { data: this.task });
+    this.dialog.open(TodoMessageFormComponent, {
+      data: { task: this.task, action: 'modify-task' },
+    });
   }
 
   openCalendarDialog(): void {

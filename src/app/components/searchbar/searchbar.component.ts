@@ -9,7 +9,7 @@ import Week from '../../models/week';
   standalone: false,
 
   templateUrl: './searchbar.component.html',
-  styleUrl: './searchbar.component.css',
+  styleUrl: './searchbar.component.scss',
 })
 export class SearchbarComponent implements OnInit {
   @Input() searchData: Day[] | Week[] = [];

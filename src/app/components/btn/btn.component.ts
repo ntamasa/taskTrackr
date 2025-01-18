@@ -5,7 +5,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   standalone: false,
 
   templateUrl: './btn.component.html',
-  styleUrls: ['./btn.component.css'],
+  styleUrls: ['./btn.component.scss'],
 })
 export class BtnComponent implements OnInit {
   @Output() buttonClick = new EventEmitter<void>();

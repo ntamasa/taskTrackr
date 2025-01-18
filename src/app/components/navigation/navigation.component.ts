@@ -5,9 +5,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-navigation',
   standalone: false,
-
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.css',
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
   public navItems = [

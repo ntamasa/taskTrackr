@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   standalone: false,
 
   templateUrl: './not-found.component.html',
-  styleUrl: './not-found.component.css',
+  styleUrl: './not-found.component.scss',
 })
 export class NotFoundComponent implements OnInit {
   constructor() {}

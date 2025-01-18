@@ -1,0 +1,57 @@
+/* These tokens are generated using https://themes.angular-material.dev/ */
+/* Preview: https://themes.angular-material.dev/?seed-error=%23f87171&seed-neutral=%2378767f&seed-neutral-variant=%23777584&seed-primary=%233730a3&seed-secondary=%23e0e7ff&seed-tertiary=%23f1f5f9 */
+/* Seed Colors: primary: #3730a3, secondary: #e0e7ff, tertiary: #f1f5f9, error: #f87171, neutral: #78767f, neutral-variant: #777584 */
+
+@use "@angular/material" as mat;
+
+/* Light Theme */
+:root,
+:host {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #3730a3,
+      supporting-text-color: #f1f5f9,
+      button-color: #f1f5f9,
+    )
+  );
+
+  @include mat.checkbox-overrides(
+    (
+      selected-icon-color: #3730a3,
+      unselected-icon-color: #3730a3,
+      selected-focus-icon-color: #3730a3,
+      selected-focus-state-layer-color: #3730a3,
+      unselected-focus-icon-color: #3730a3,
+      unselected-focus-state-layer-color: #3730a3,
+      selected-hover-icon-color: #3730a3,
+      selected-hover-state-layer-color: #3730a3,
+      unselected-hover-icon-color: #3730a3,
+      unselected-hover-state-layer-color: #3730a3,
+      selected-pressed-icon-color: #3730a3,
+      selected-pressed-state-layer-color: #3730a3,
+      unselected-pressed-state-layer-color: #3730a3,
+    )
+  );
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-page-heading',
   standalone: false,
   templateUrl: './page-heading.component.html',
-  styleUrl: './page-heading.component.css',
+  styleUrl: './page-heading.component.scss',
 })
 export class PageHeadingComponent implements OnInit {
   constructor() {}

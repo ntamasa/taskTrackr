@@ -5,9 +5,8 @@ import Day from '../../models/day';
 @Component({
   selector: 'app-day-template',
   standalone: false,
-
   templateUrl: './day-template.component.html',
-  styleUrl: './day-template.component.css',
+  styleUrls: ['./day-template.component.scss'],
 })
 export class DayTemplateComponent implements OnInit {
   @Input() days: Day[] = [];

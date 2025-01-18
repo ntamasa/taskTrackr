@@ -1,14 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { WeekService } from '../../services/weekService';
 import Todo from '../../models/todo';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-task-form',
   standalone: false,
 
   templateUrl: './create-task-form.component.html',
-  styleUrl: './create-task-form.component.css',
+  styleUrls: ['./create-task-form.component.scss'],
 })
 export class CreateTaskFormComponent implements OnInit {
   importance: string = 'important';
@@ -16,6 +17,7 @@ export class CreateTaskFormComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private _snackBar: MatSnackBar,
     private weekService: WeekService
   ) {}
 
@@ -33,6 +35,13 @@ export class CreateTaskFormComponent implements OnInit {
       } as Todo,
       this.data
     );
+
+    // Open snackbar to inform user the task was added
+    const config = new MatSnackBarConfig();
+    config.panelClass = ['custom-snackbar'];
+    this._snackBar.open('Task added!', 'Close', {
+      panelClass: ['custom-snackbar'],
+    });
   }
 
   handleCancel(): void {}

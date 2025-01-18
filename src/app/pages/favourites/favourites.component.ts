@@ -9,7 +9,7 @@ import Week from '../../models/week';
   standalone: false,
 
   templateUrl: './favourites.component.html',
-  styleUrl: './favourites.component.css',
+  styleUrl: './favourites.component.scss',
 })
 export class FavouritesComponent implements OnInit {
   days: Day[] = [

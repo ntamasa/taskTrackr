@@ -19,7 +19,7 @@ interface DayMessage {
   standalone: false,
 
   templateUrl: './todos-page.component.html',
-  styleUrl: './todos-page.component.css',
+  styleUrl: './todos-page.component.scss',
 })
 export class TodosPageComponent implements OnInit, OnDestroy {
   weeksHeading: DayMessage[] = [

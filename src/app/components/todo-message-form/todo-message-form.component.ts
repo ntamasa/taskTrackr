@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   standalone: false,
 
   templateUrl: './todo-message-form.component.html',
-  styleUrl: './todo-message-form.component.css',
+  styleUrl: './todo-message-form.component.scss',
 })
 export class TodoMessageFormComponent implements OnInit {
   task: Todo = {
@@ -21,6 +21,9 @@ export class TodoMessageFormComponent implements OnInit {
   };
 
   message: string = this.task.message;
+  importance: string = this.task.isImportant ? 'important' : 'other';
+
+  action: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,13 +31,18 @@ export class TodoMessageFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.task = this.data;
-    this.message = this.task.message;
+    this.task = this.data.task;
+    this.action = this.data.action;
+
+    if (this.action === 'add-message') this.message = this.task.message;
+    else {
+      this.importance = this.task.isImportant ? 'important' : 'other';
+      this.message = this.task.text;
+    }
   }
 
   handleSubmit(): void {
     this.weekService.updateMessage(this.task.id, this.message);
-    // this.taskService.updateMessage(this.task.id, this.message);
   }
 
   handleCancel(): void {}

@@ -6,7 +6,7 @@ import { WeekService } from '../../services/weekService';
   selector: 'app-calendar',
   standalone: false,
   templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.css',
+  styleUrl: './calendar.component.scss',
 })
 export class CalendarComponent implements OnInit {
   selected: Date = new Date();

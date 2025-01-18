@@ -37,6 +37,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TodosPageComponent } from './pages/todos-page/todos-page.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { TodosPageComponent } from './pages/todos-page/todos-page.component';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [provideAnimationsAsync(), provideNativeDateAdapter()],
   bootstrap: [AppComponent],

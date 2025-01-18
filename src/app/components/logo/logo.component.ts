@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   standalone: false,
 
   templateUrl: './logo.component.html',
-  styleUrl: './logo.component.css',
+  styleUrl: './logo.component.scss',
 })
 export class LogoComponent implements OnInit {
   @Input() classes: string[] = [];

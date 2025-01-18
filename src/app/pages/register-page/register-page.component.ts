@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 
   templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.css',
+  styleUrl: './register-page.component.scss',
 })
 export class RegisterPageComponent implements OnInit {
   error: string = '';

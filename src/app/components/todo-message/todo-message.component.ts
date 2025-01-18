@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   standalone: false,
 
   templateUrl: './todo-message.component.html',
-  styleUrl: './todo-message.component.css',
+  styleUrl: './todo-message.component.scss',
 })
 export class TodoMessageComponent implements OnInit {
   message: string = '';
