@@ -40,7 +40,7 @@ export class CreateTaskFormComponent implements OnInit {
     const config = new MatSnackBarConfig();
     config.panelClass = ['custom-snackbar'];
     this._snackBar.open('Task added!', 'Close', {
-      panelClass: ['custom-snackbar'],
+      duration: 3000,
     });
   }
 

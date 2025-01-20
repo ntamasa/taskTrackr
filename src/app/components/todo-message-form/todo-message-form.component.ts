@@ -21,6 +21,7 @@ export class TodoMessageFormComponent implements OnInit {
   };
 
   message: string = this.task.message;
+  text: string = this.task.text;
   importance: string = this.task.isImportant ? 'important' : 'other';
 
   action: string = '';
@@ -37,12 +38,19 @@ export class TodoMessageFormComponent implements OnInit {
     if (this.action === 'add-message') this.message = this.task.message;
     else {
       this.importance = this.task.isImportant ? 'important' : 'other';
-      this.message = this.task.text;
+      this.text = this.task.text;
     }
   }
 
   handleSubmit(): void {
-    this.weekService.updateMessage(this.task.id, this.message);
+    if (this.action === 'add-message')
+      this.weekService.updateMessage(this.task.id, this.message);
+    else
+      this.weekService.updateTask(
+        this.task.id,
+        this.text,
+        this.importance === 'important'
+      );
   }
 
   handleCancel(): void {}

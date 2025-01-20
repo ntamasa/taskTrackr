@@ -42,7 +42,7 @@ export class TodoItemComponent implements OnInit {
   }
 
   finishTask(): void {
-    // this.taskService.finishTask(this.task.id);
+    this.weekService.finishTask(this.task.id, this.dayId);
   }
 
   duplicateTask(): void {

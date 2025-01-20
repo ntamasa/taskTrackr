@@ -73,14 +73,7 @@ export class TodosPageComponent implements OnInit, OnDestroy {
     });
 
     // Set current week
-    this.currentWeek =
-      this.weeks.find(
-        (week) =>
-          week.id ===
-          +`${this.currentDate.getFullYear()}${this.currentDate.getMonth()}${getWeek(
-            this.currentDate
-          )}`
-      ) || ({} as Week);
+    this.currentWeek = this.weekService.getCurrentWeek;
 
     // Set days
     this.days = this.currentWeek.days;

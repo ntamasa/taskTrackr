@@ -8,6 +8,7 @@
 
   <mat-dialog-content>
     <input
+      *ngIf="this.action === 'add-message'"
       class="bg-indigo-800 text-slate-100 rounded-xl px-4 py-2 selection:bg-indigo-500 min-w-72"
       [(ngModel)]="message"
       [value]="task.message"
@@ -16,6 +17,17 @@
       id="todo-message"
       maxlength="50"
       placeholder="Add a message to this task..."
+    />
+    <input
+      *ngIf="this.action === 'modify-task'"
+      class="bg-indigo-800 text-slate-100 rounded-xl px-4 py-2 selection:bg-indigo-500 min-w-72"
+      [(ngModel)]="text"
+      [value]="task.text"
+      type="text"
+      name="todo-message"
+      id="todo-message"
+      maxlength="50"
+      placeholder="Modify this task..."
     />
 
     <select

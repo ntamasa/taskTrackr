@@ -7,6 +7,7 @@ import { getWeek } from '../utils/getWeek';
 import Todo from '../models/todo';
 import { WeekDay } from '@angular/common';
 import { CdkAriaLive } from '@angular/cdk/a11y';
+import { mockWeekTemplate } from '../mockWeekTemp';
 
 const WEEKDAYS = [
   'Monday',
@@ -31,7 +32,7 @@ export class WeekService {
 
   toggleFavourite(text: string): void {
     const currentWeeks = this.weeks.getValue();
-    const currentWeek = this.getCurrentWeek();
+    const currentWeek = this.getCurrentWeek;
 
     const updatedDays = currentWeek.days.map((day) => {
       const updatedTasks = day.tasks.map((task) =>
@@ -50,7 +51,7 @@ export class WeekService {
 
   updateMessage(id: number, message: string): void {
     const currentWeeks = this.weeks.getValue();
-    const currentWeek = this.getCurrentWeek();
+    const currentWeek = this.getCurrentWeek;
 
     const updatedDays = currentWeek.days.map((day) => {
       const updatedTasks = day.tasks.map((task) =>
@@ -67,9 +68,28 @@ export class WeekService {
     this.weeks.next(updatedWeeks);
   }
 
+  updateTask(id: number, text: string, importance: boolean): void {
+    const currentWeeks = this.weeks.getValue();
+    const currentWeek = this.getCurrentWeek;
+
+    const updatedDays = currentWeek.days.map((day) => {
+      const updatedTasks = day.tasks.map((task) =>
+        task.id === id ? { ...task, text, isImportant: importance } : task
+      );
+      return { ...day, tasks: updatedTasks };
+    });
+
+    const updatedWeek = { ...currentWeek, days: updatedDays };
+    const updatedWeeks = currentWeeks.map((week) =>
+      week.id === updatedWeek.id ? updatedWeek : week
+    );
+
+    this.weeks.next(updatedWeeks);
+  }
+
   duplicateTask(id: number, dayId: number): void {
     const currentWeeks = this.weeks.getValue();
-    const currentWeek = this.getCurrentWeek();
+    const currentWeek = this.getCurrentWeek;
     const currentDay = currentWeek.days.find((day) => day.id === dayId) as Day;
 
     const taskToDuplicate = currentDay.tasks.find((task) => task.id === id);
@@ -77,7 +97,11 @@ export class WeekService {
     if (taskToDuplicate) {
       const updatedTasks = [
         ...currentDay.tasks,
-        { ...taskToDuplicate, text: taskToDuplicate.text + ' (copy)' },
+        {
+          ...taskToDuplicate,
+          text: taskToDuplicate.text + ' (copy)',
+          id: new Date().getTime(),
+        },
       ];
       const updatedDays: Day[] = currentWeek.days.map((day) =>
         day === currentDay ? { ...day, tasks: updatedTasks } : day
@@ -144,7 +168,7 @@ export class WeekService {
     // check if selected week already exists
     const selectedWeek = this.getWeek(selected);
 
-    const currentWeek = this.getCurrentWeek();
+    const currentWeek = this.getCurrentWeek;
     const currentTasks = currentWeek.days[dayIndex].tasks;
     const currentTaskNames = currentTasks.map((task) => task.text);
 
@@ -195,7 +219,7 @@ export class WeekService {
 
   addTask(task: Todo, dayIndex: number): void {
     const currentWeeks = this.weeks.getValue();
-    const currentWeek = this.getCurrentWeek();
+    const currentWeek = this.getCurrentWeek;
     const currentDay = currentWeek.days[dayIndex];
 
     const updatedTasks = [...currentDay.tasks, task];
@@ -204,15 +228,42 @@ export class WeekService {
     );
 
     const updatedWeek = { ...currentWeek, days: updatedDays };
+
+    let updatedWeeks: Week[] = [];
+    if (currentWeeks.find((week) => week.id === updatedWeek.id)) {
+      updatedWeeks = currentWeeks.map((week) =>
+        week.id === updatedWeek.id ? updatedWeek : week
+      );
+    } else {
+      updatedWeeks = [...currentWeeks, updatedWeek];
+    }
+    this.weeks.next(updatedWeeks);
+  }
+
+  finishTask(taskId: number, dayIndex: number): void {
+    const currentWeeks = this.weeks.getValue();
+    const currentWeek = this.getCurrentWeek;
+    const currentDay = currentWeek.days[dayIndex];
+
+    const updatedTasks = currentDay.tasks.map((task) =>
+      task.id === taskId ? { ...task, done: !task.done } : task
+    );
+
+    const updatedDays: Day[] = currentWeek.days.map((day) =>
+      day === currentDay ? { ...day, tasks: updatedTasks } : day
+    );
+
+    const updatedWeek = { ...currentWeek, days: updatedDays };
     const updatedWeeks = currentWeeks.map((week) =>
       week.id === updatedWeek.id ? updatedWeek : week
     );
+
     this.weeks.next(updatedWeeks);
   }
 
   deleteTask(text: string, dayId: number): void {
     const currentWeeks = this.weeks.getValue();
-    const currentWeek = this.getCurrentWeek();
+    const currentWeek = this.getCurrentWeek;
     const currentDay = currentWeek.days.find((day) => day.id === dayId) as Day;
 
     const updatedTasks = currentDay.tasks.filter((task) => task.text !== text);
@@ -231,7 +282,7 @@ export class WeekService {
 
   clearDay(currentDay: Day): void {
     const currentWeeks = this.weeks.getValue();
-    const currentWeek = this.getCurrentWeek();
+    const currentWeek = this.getCurrentWeek;
 
     const updatedDays = currentWeek.days.map((day) =>
       day.id === currentDay.id ? { ...currentDay, tasks: [] } : day
@@ -246,7 +297,7 @@ export class WeekService {
 
   copyTasksToNextDay(day: Day): void {
     const currentWeeks = this.weeks.getValue();
-    const currentWeek = this.getCurrentWeek();
+    const currentWeek = this.getCurrentWeek;
     const currentDayIndex = currentWeek.days.findIndex(
       (currentDay) => currentDay.id === day.id
     );
@@ -269,16 +320,18 @@ export class WeekService {
     this.weeks.next(updatedWeeks);
   }
 
-  getCurrentWeek(): Week {
-    return this.weeks
-      .getValue()
-      .find(
-        (week) =>
-          week.id ===
-          +`${new Date().getFullYear()}${new Date().getMonth()}${getWeek(
-            new Date()
-          )}`
-      ) as Week;
+  get getCurrentWeek(): Week {
+    return (
+      (this.weeks
+        .getValue()
+        .find(
+          (week) =>
+            week.id ===
+            +`${new Date().getFullYear()}${new Date().getMonth()}${getWeek(
+              new Date()
+            )}`
+        ) as Week) || mockWeekTemplate
+    );
   }
 
   getWeek(date: Date): Week {

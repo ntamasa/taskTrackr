@@ -27,13 +27,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.weekService.data$.subscribe((weeks) => {
-      this.currentWeek = weeks.find(
-        (week) =>
-          week.id ===
-          +`${this.currentDate.getFullYear()}${this.currentDate.getMonth()}${getWeek(
-            this.currentDate
-          )}`
-      ) as Week;
+      this.currentWeek = this.weekService.getCurrentWeek;
 
       let day;
       switch (this.type) {
