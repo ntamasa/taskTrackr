@@ -4,6 +4,18 @@
     <span class="font-medium">{{ weeksHeading[currentDay].message }}</span>
   </app-page-heading>
 
+  <!-- Week picker -->
+  <div class="w-3/4 flex flex-row">
+    <app-date-picker (dateChange)="onDateChange($event)"></app-date-picker>
+    <app-btn
+      (buttonClick)="showCurrentWeek()"
+      class="text-center"
+      [disabled]="this.currentWeek.id === this.shownWeek.id"
+    >
+      <span class="w-fit px-3">Current</span>
+    </app-btn>
+  </div>
+
   <!-- To-do list -->
   <mat-tab-group class="w-3/4" [selectedIndex]="currentDay">
     <mat-tab

@@ -38,6 +38,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TodosPageComponent } from './pages/todos-page/todos-page.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -65,6 +68,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SearchbarComponent,
     NotFoundComponent,
     TodosPageComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +84,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [provideAnimationsAsync(), provideNativeDateAdapter()],
   bootstrap: [AppComponent],

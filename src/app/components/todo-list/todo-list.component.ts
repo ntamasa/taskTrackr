@@ -21,25 +21,25 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
   currentWeek: Week = {} as Week;
   currentDate: Date = new Date();
-  Math: any;
+  shownWeek: Week = {} as Week;
 
   constructor(private weekService: WeekService) {}
 
   ngOnInit(): void {
-    this.sub = this.weekService.data$.subscribe((weeks) => {
-      this.currentWeek = this.weekService.getCurrentWeek;
+    this.sub = this.weekService.data$.subscribe(({ weeks, shownWeekId }) => {
+      this.shownWeek = weeks.find((week) => week.id === shownWeekId)!;
 
       let day;
       switch (this.type) {
         // Important tasks of current day
         case 'important':
-          day = this.currentWeek.days.find((day) => day.id === this.dayId);
+          day = this.shownWeek.days.find((day) => day.id === this.dayId);
           if (day) this.tasks = day.tasks.filter((task) => task.isImportant);
           break;
 
         // Non-important tasks of current day
         case 'non-important':
-          day = this.currentWeek.days.find((day) => day.id === this.dayId);
+          day = this.shownWeek.days.find((day) => day.id === this.dayId);
           if (day) this.tasks = day.tasks.filter((task) => !task.isImportant);
           break;
 
@@ -61,7 +61,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
 
         // All tasks of the current day
         default:
-          this.tasks = this.currentWeek.days[new Date().getDay() - 1].tasks;
+          this.tasks = this.shownWeek.days[new Date().getDay() - 1].tasks;
           break;
       }
     });

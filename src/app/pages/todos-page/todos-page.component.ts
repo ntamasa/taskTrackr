@@ -58,6 +58,7 @@ export class TodosPageComponent implements OnInit, OnDestroy {
 
   currentDate: Date = new Date();
   currentWeek: Week = {} as Week;
+  shownWeek: Week = {} as Week;
   days: Day[] = [];
 
   currentDay: number = new Date().getDay() - 1;
@@ -67,16 +68,18 @@ export class TodosPageComponent implements OnInit, OnDestroy {
   constructor(private weekService: WeekService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.sub = this.weekService.data$.subscribe((weeks) => {
+    this.sub = this.weekService.data$.subscribe(({ weeks, shownWeekId }) => {
       this.weeks = weeks;
-      this.days = this.currentWeek.days;
+      this.shownWeek = weeks.find((week) => week.id === shownWeekId)!;
+      this.days = this.shownWeek.days;
     });
 
     // Set current week
     this.currentWeek = this.weekService.getCurrentWeek;
+    this.shownWeek = this.currentWeek;
 
     // Set days
-    this.days = this.currentWeek.days;
+    this.days = this.shownWeek.days;
   }
 
   ngOnDestroy(): void {
@@ -97,5 +100,31 @@ export class TodosPageComponent implements OnInit, OnDestroy {
 
   copyToNextDay(day: Day): void {
     this.weekService.copyTasksToNextDay(day);
+  }
+
+  showCurrentWeek(): void {
+    this.shownWeek = this.currentWeek;
+    this.weekService.updateShownWeek(this.currentWeek);
+  }
+
+  onDateChange(selectedDate: Date | null): void {
+    if (!selectedDate) return;
+
+    // get selected week's id
+    const selectedWeekId =
+      +`${selectedDate.getFullYear()}${selectedDate.getMonth()}${getWeek(
+        selectedDate
+      )}`;
+
+    // find selected week
+    const selectedWeek = this.weeks.find((week) => week.id === selectedWeekId);
+
+    // week already exists -> show week
+    if (selectedWeek)
+      this.shownWeek = this.weeks.find((week) => week.id === selectedWeekId)!;
+    // week doesn't exist -> create new week, show newly created week
+    else this.shownWeek = this.weekService.createWeek(selectedDate);
+
+    this.weekService.updateShownWeek(selectedWeek!);
   }
 }

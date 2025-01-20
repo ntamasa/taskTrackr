@@ -1,10 +1,5 @@
-/* These tokens are generated using https://themes.angular-material.dev/ */
-/* Preview: https://themes.angular-material.dev/?seed-error=%23f87171&seed-neutral=%2378767f&seed-neutral-variant=%23777584&seed-primary=%233730a3&seed-secondary=%23e0e7ff&seed-tertiary=%23f1f5f9 */
-/* Seed Colors: primary: #3730a3, secondary: #e0e7ff, tertiary: #f1f5f9, error: #f87171, neutral: #78767f, neutral-variant: #777584 */
-
 @use "@angular/material" as mat;
 
-/* Light Theme */
 :root,
 :host {
   @include mat.snack-bar-overrides(
@@ -30,6 +25,36 @@
       selected-pressed-icon-color: #3730a3,
       selected-pressed-state-layer-color: #3730a3,
       unselected-pressed-state-layer-color: #3730a3,
+    )
+  );
+
+  @include mat.datepicker-overrides(
+    (
+      calendar-date-selected-state-text-color: #f1f5f9,
+      calendar-date-selected-state-background-color: #3730a3,
+      calendar-date-today-selected-state-outline-color: #3730a3,
+      calendar-date-focus-state-background-color: #3730a3,
+      calendar-date-hover-state-background-color: #3730a3,
+      toggle-active-state-icon-color: #3730a3,
+      toggle-icon-color: #3730a3,
+      calendar-container-background-color: #e0e7ff,
+    )
+  );
+
+  @include mat.form-field-overrides(
+    (
+      filled-focus-active-indicator-color: #3730a3,
+      filled-active-indicator-color: #3730a3,
+      filled-disabled-active-indicator-color: #3730a3,
+      filled-hover-active-indicator-color: #3730a3,
+      filled-error-active-indicator-color: #f87171,
+      filled-error-focus-active-indicator-color: #f87171,
+      filled-error-hover-active-indicator-color: #f87171,
+      filled-container-color: #e0e7ff,
+      filled-input-text-color: #3730a3,
+      filled-label-text-color: #3730a3,
+      filled-hover-label-text-color: #3730a3,
+      container-text-weight: 500,
     )
   );
 }

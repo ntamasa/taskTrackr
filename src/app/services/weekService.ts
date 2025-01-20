@@ -1,5 +1,5 @@
 import { Injectable, ɵgetUnknownPropertyStrictMode } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import Week from '../models/week';
 import { mockWeeks } from '../mockWeeks';
 import Day from '../models/day';
@@ -24,10 +24,20 @@ export class WeekService {
   private weeks: BehaviorSubject<Week[]> = new BehaviorSubject<Week[]>(
     [] as Week[]
   );
-  data$ = this.weeks.asObservable();
+  private shownWeekId: BehaviorSubject<number> = new BehaviorSubject<number>(
+    +`${new Date().getFullYear()}${new Date().getMonth()}${getWeek(new Date())}`
+  );
+
+  data$ = combineLatest([this.weeks, this.shownWeekId]).pipe(
+    map(([weeks, shownWeekId]) => ({
+      weeks,
+      shownWeekId,
+    }))
+  );
 
   constructor() {
     this.weeks.next(mockWeeks);
+    this.shownWeekId.next(this.getCurrentWeek.id);
   }
 
   toggleFavourite(text: string): void {
@@ -238,6 +248,7 @@ export class WeekService {
       updatedWeeks = [...currentWeeks, updatedWeek];
     }
     this.weeks.next(updatedWeeks);
+    this.shownWeekId.next(updatedWeek.id);
   }
 
   finishTask(taskId: number, dayIndex: number): void {
@@ -320,18 +331,39 @@ export class WeekService {
     this.weeks.next(updatedWeeks);
   }
 
+  createWeek(date: Date): Week {
+    const newWeek = {
+      ...mockWeekTemplate,
+      id: +`${date.getFullYear()}${date.getMonth()}${getWeek(date)}`,
+    };
+
+    this.weeks.next([...this.weeks.getValue(), newWeek]);
+
+    return {
+      ...mockWeekTemplate,
+      id: +`${date.getFullYear()}${date.getMonth()}${getWeek(date)}`,
+    };
+  }
+
   get getCurrentWeek(): Week {
+    const currentWeekId =
+      +`${new Date().getFullYear()}${new Date().getMonth()}${getWeek(
+        new Date()
+      )}`;
     return (
       (this.weeks
         .getValue()
-        .find(
-          (week) =>
-            week.id ===
-            +`${new Date().getFullYear()}${new Date().getMonth()}${getWeek(
-              new Date()
-            )}`
-        ) as Week) || mockWeekTemplate
+        .find((week) => week.id === currentWeekId) as Week) ||
+      this.createWeek(new Date())
     );
+  }
+
+  get getShownWeek(): number {
+    return this.shownWeekId.getValue();
+  }
+
+  updateShownWeek(week: Week): void {
+    this.shownWeekId.next(week.id);
   }
 
   getWeek(date: Date): Week {
