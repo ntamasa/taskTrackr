@@ -3,7 +3,10 @@
   [class]="'grid-rows-' + tasks.length / 2"
 >
   <p *ngIf="tasks.length < 1">No tasks found.</p>
-  <li *ngFor="let task of tasks" class="text-indigo-800">
+  <li
+    *ngFor="let task of tasks; trackBy: trackByTaskId"
+    class="text-indigo-800"
+  >
     <app-todo-item [task]="task" [dayId]="dayId"></app-todo-item>
   </li>
 </ul>

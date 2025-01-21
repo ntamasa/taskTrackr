@@ -28,12 +28,20 @@ export class WeekService {
     +`${new Date().getFullYear()}${new Date().getMonth()}${getWeek(new Date())}`
   );
 
-  data$ = combineLatest([this.weeks, this.shownWeekId]).pipe(
-    map(([weeks, shownWeekId]) => ({
-      weeks,
-      shownWeekId,
-    }))
+  data$ = this.weeks.asObservable();
+  shownWeek$ = this.shownWeekId.asObservable();
+
+  combinedData$ = combineLatest([this.data$, this.shownWeek$]).pipe(
+    map(([weeks, shownWeekId]) => {
+      const shownWeek = weeks.find((week) => week.id === shownWeekId);
+      return {
+        weeks,
+        shownWeek,
+      };
+    })
   );
+  // data$ = this.weeks.asObservable();
+  // shownWeek$ = this.shownWeekId.asObservable();
 
   constructor() {
     this.weeks.next(mockWeeks);
@@ -151,18 +159,21 @@ export class WeekService {
 
       // false -> create new week and add task to the selected day
     } else {
+      const newWeekId =
+        +`${selected.getFullYear()}${selected.getMonth()}${getWeek(selected)}`;
       const updatedTasks = [{ ...data, id: new Date().getTime() }];
 
       const updatedDays = WEEKDAYS.map((day, i) => ({
         id: i + 1,
-        name: day,
+        name:
+          +`${selected.getFullYear()}${selected.getMonth()}${getWeek(
+            selected
+          )}` + day,
         tasks: i === selected.getDay() - 1 ? updatedTasks : [],
       }));
 
       const newWeek = {
-        id: +`${selected.getFullYear()}${selected.getMonth()}${getWeek(
-          selected
-        )}`,
+        id: newWeekId,
         name: [selected.getFullYear(), getWeek(selected)].join('-'),
         days: updatedDays,
         isDefault: false,

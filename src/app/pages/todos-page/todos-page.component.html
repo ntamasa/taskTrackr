@@ -19,7 +19,7 @@
   <!-- To-do list -->
   <mat-tab-group class="w-3/4" [selectedIndex]="currentDay">
     <mat-tab
-      *ngFor="let day of days; let i = index"
+      *ngFor="let day of days; let i = index; trackBy: trackByDayName"
       [label]="weeksHeading[i].day"
     >
       <section

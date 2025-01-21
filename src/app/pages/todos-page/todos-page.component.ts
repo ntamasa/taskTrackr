@@ -68,11 +68,14 @@ export class TodosPageComponent implements OnInit, OnDestroy {
   constructor(private weekService: WeekService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.sub = this.weekService.data$.subscribe(({ weeks, shownWeekId }) => {
-      this.weeks = weeks;
-      this.shownWeek = weeks.find((week) => week.id === shownWeekId)!;
-      this.days = this.shownWeek.days;
-    });
+    this.sub = this.weekService.combinedData$.subscribe(
+      ({ weeks, shownWeek }) => {
+        this.weeks = weeks;
+        this.shownWeek = shownWeek!;
+        this.days = this.shownWeek.days;
+        console.log(this.shownWeek);
+      }
+    );
 
     // Set current week
     this.currentWeek = this.weekService.getCurrentWeek;
@@ -126,5 +129,9 @@ export class TodosPageComponent implements OnInit, OnDestroy {
     else this.shownWeek = this.weekService.createWeek(selectedDate);
 
     this.weekService.updateShownWeek(selectedWeek!);
+  }
+
+  trackByDayName(index: number, day: Day): string {
+    return day.name;
   }
 }
