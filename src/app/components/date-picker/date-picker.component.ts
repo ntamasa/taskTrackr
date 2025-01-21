@@ -11,6 +11,7 @@ export class DatePickerComponent implements OnInit {
   readonly minDate = new Date(2025, 0, 1);
 
   selectedDate: Date | null = null;
+  currentDate: Date = new Date();
   @Output() dateChange = new EventEmitter<Date>();
 
   constructor() {}
@@ -20,5 +21,10 @@ export class DatePickerComponent implements OnInit {
   onDateChange(event: any): void {
     this.selectedDate = event;
     this.dateChange.emit(event);
+  }
+
+  showCurrentWeek(): void {
+    this.selectedDate = new Date();
+    this.dateChange.emit(this.selectedDate);
   }
 }

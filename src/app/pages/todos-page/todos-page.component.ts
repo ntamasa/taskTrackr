@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import Todo from '../../models/todo';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CreateTaskFormComponent } from '../../components/create-task-form/create-task-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { WeekService } from '../../services/weekService';
@@ -53,17 +52,15 @@ export class TodosPageComponent implements OnInit, OnDestroy {
     },
   ];
 
-  weeks: Week[] = [];
+  weeks!: Week[];
   private sub!: Subscription;
 
-  currentDate: Date = new Date();
-  currentWeek: Week = {} as Week;
-  shownWeek: Week = {} as Week;
-  days: Day[] = [];
-
   currentDay: number = new Date().getDay() - 1;
+  currentDate: Date = new Date();
 
-  isCalendarOpen: boolean = false;
+  currentWeek!: Week;
+  shownWeek!: Week;
+  days!: Day[];
 
   constructor(private weekService: WeekService, public dialog: MatDialog) {}
 
@@ -73,7 +70,6 @@ export class TodosPageComponent implements OnInit, OnDestroy {
         this.weeks = weeks;
         this.shownWeek = shownWeek!;
         this.days = this.shownWeek.days;
-        console.log(this.shownWeek);
       }
     );
 

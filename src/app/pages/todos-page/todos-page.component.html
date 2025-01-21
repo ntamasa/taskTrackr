@@ -5,16 +5,7 @@
   </app-page-heading>
 
   <!-- Week picker -->
-  <div class="w-3/4 flex flex-row">
-    <app-date-picker (dateChange)="onDateChange($event)"></app-date-picker>
-    <app-btn
-      (buttonClick)="showCurrentWeek()"
-      class="text-center"
-      [disabled]="this.currentWeek.id === this.shownWeek.id"
-    >
-      <span class="w-fit px-3">Current</span>
-    </app-btn>
-  </div>
+  <app-date-picker (dateChange)="onDateChange($event)"></app-date-picker>
 
   <!-- To-do list -->
   <mat-tab-group class="w-3/4" [selectedIndex]="currentDay">
@@ -81,12 +72,7 @@
           <span class="w-fit">Copy to next day</span>
         </app-btn>
 
-        <app-btn
-          (buttonClick)="
-            isCalendarOpen = !isCalendarOpen; openCalendarDialog(i)
-          "
-          class="text-center"
-        >
+        <app-btn (buttonClick)="openCalendarDialog(i)" class="text-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -124,32 +110,4 @@
       </section>
     </mat-tab>
   </mat-tab-group>
-
-  <!-- Calendar -->
-  <section
-    *ngIf="isCalendarOpen"
-    class="w-3/4 mt-10 flex flex-col justify-center items-center gap-4"
-  >
-    <app-calendar></app-calendar>
-
-    <div class="flex flex-row justify-between w-72">
-      <button
-        class="px-4 py-2 rounded-lg bg-indigo-800 hover:bg-indigo-900 transition duration-300 text-slate-100 font-medium"
-        type="submit"
-        (click)="
-          $event.preventDefault();
-          isCalendarOpen = !isCalendarOpen;
-          ('(TODO SAVE MESSAGE TO DB)')
-        "
-      >
-        Done
-      </button>
-      <button
-        class="px-4 py-2 rounded-lg bg-indigo-800 hover:bg-indigo-900 transition duration-300 shadow-md text-slate-100 font-medium z-50"
-        (click)="isCalendarOpen = !isCalendarOpen"
-      >
-        Cancel
-      </button>
-    </div>
-  </section>
 </main>
