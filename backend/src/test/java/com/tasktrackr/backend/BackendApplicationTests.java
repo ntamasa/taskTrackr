@@ -1,10 +1,10 @@
-package com.ntamasa.tasktrackr;
+package com.tasktrackr.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TasktrackrApplicationTests {
+class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
