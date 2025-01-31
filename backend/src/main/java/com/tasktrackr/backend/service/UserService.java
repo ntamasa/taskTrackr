@@ -13,6 +13,9 @@ public class UserService {
 
     private UserRepository userRepository;
 
+    // ----- GET -----
+
+    // Get all users
     public List<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
@@ -20,6 +23,8 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    // ----- Private helper methods -----
+    // Model to DTO
     private UserDTO convertToDTO(User user) {
         return UserDTO.builder()
                 .id(user.getId())

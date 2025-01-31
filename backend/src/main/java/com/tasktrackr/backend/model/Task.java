@@ -26,9 +26,9 @@ public class Task {
     private String description;
 
     private LocalDate date;
-    private boolean isCompleted;
-    private boolean isFavourite;
-    private boolean isImportant;
+    private Boolean isCompleted;
+    private Boolean isFavourite;
+    private Boolean isImportant;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

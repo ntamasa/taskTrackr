@@ -17,6 +17,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    // ----- GET -----
+    // --- User related
+
+    // --- Admin related
+    // Get all users
     @GetMapping
     public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();

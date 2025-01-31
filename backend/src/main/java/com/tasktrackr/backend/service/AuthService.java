@@ -26,7 +26,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-
+    // Create new user
     public AuthResponse register(RegisterRequest request) {
         // check if user already exists
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
@@ -48,6 +48,8 @@ public class AuthService {
         saveUserToken(savedUser, jwtToken);
         return AuthResponse.builder().accessToken(jwtService.generateToken(user)).refreshToken(refreshToken).build();
    }
+
+   // Authenticate user
    public AuthResponse authenticate(AuthRequest request) {
         authenticationManager.authenticate(
          new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -57,6 +59,9 @@ public class AuthService {
         return AuthResponse.builder().accessToken(jwtToken).refreshToken("").build();
    }
 
+
+   // ----- Private helper methods -----
+   // Save user token to database
    private void saveUserToken(User user, String jwtToken) {
        Token token = Token.builder().token(jwtToken).user(user).revoked(false).expired(false).build();
        tokenRepository.save(token);

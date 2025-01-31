@@ -26,12 +26,12 @@ public class TaskDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    @JsonProperty("isComplete")
-    private boolean isComplete;
+    @JsonProperty("isCompleted")
+    private Boolean isComplete;
 
     @JsonProperty("isFavourite")
-    private boolean isFavourite;
+    private Boolean isFavourite;
 
     @JsonProperty("isImportant")
-    private boolean isImportant;
+    private Boolean isImportant;
 }
