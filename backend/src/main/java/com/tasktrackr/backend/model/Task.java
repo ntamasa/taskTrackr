@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -30,14 +32,29 @@ public class Task {
     private Boolean isFavourite;
     private Boolean isImportant;
 
+    @ElementCollection(targetClass = Recurrence.class)
     @Enumerated(EnumType.STRING)
-    private Recurrence recurrence;
+    private List<Recurrence> recurrences;
     private LocalDate nextDueDate;
     private LocalDate recurrenceStartDate;
     private LocalDate recurrenceEndDate;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void addRecurrence(Recurrence recurrence) {
+        if (!this.recurrences.contains(recurrence))
+            this.recurrences.add(recurrence);
+    }
+
+    public void removeRecurrence(Recurrence recurrence) {
+        if (this.recurrences.contains(recurrence)) {
+            if (this.recurrences.size() == 1) // only this item left
+                this.recurrences = new ArrayList<>(List.of(Recurrence.NONE));
+            else
+                this.recurrences.remove(recurrence);
+        }
+
+    }
 }

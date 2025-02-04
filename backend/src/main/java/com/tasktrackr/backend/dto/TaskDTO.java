@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
@@ -38,7 +39,7 @@ public class TaskDTO {
     private Boolean isImportant;
 
     @Enumerated(EnumType.STRING)
-    private Recurrence recurrence;
+    private List<Recurrence> recurrences;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate nextDueDate;

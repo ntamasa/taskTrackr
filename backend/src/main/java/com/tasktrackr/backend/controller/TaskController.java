@@ -88,7 +88,20 @@ public class TaskController {
     public ResponseEntity<TaskDTO> updateTask(@PathVariable @Valid Long taskId,
                                               @RequestBody TaskDTO dto) {
         Long userId = authenticateUser();
-        return ResponseEntity.ok(taskService.updateTask(taskId, dto, userId));
+        return ResponseEntity.ok(taskService.updateTask(taskId, dto));
+    }
+    // Remove a task's recurrence
+    @PatchMapping("/removeRecurrence/{taskId}")
+    public ResponseEntity<TaskDTO> removeRecurrence(@PathVariable @Valid Long taskId,
+                                                    @RequestBody TaskDTO dto) {
+        Long userId = authenticateUser();
+        return ResponseEntity.ok(taskService.removeRecurrence(taskId, dto));
+    }
+    // Remove a task's all recurrences
+    @PatchMapping("/removeAllRecurrences/{taskId}")
+    public ResponseEntity<TaskDTO> removeAllRecurrences(@PathVariable @Valid Long taskId) {
+        Long userId = authenticateUser();
+        return ResponseEntity.ok(taskService.removeAllRecurrences(taskId));
     }
 
     // ----- DELETE -----
