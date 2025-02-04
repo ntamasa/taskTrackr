@@ -30,6 +30,13 @@ public class Task {
     private Boolean isFavourite;
     private Boolean isImportant;
 
+    @Enumerated(EnumType.STRING)
+    private Recurrence recurrence;
+    private LocalDate nextDueDate;
+    private LocalDate recurrenceStartDate;
+    private LocalDate recurrenceEndDate;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

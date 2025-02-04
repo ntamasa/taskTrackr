@@ -43,6 +43,13 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getAllFavouriteTasks(userId));
     }
 
+    // Get all recurring tasks
+    @GetMapping("/recurring")
+    public ResponseEntity<List<TaskDTO>> getAllRecurringTasks() {
+        Long userId = authenticateUser();
+        return ResponseEntity.ok(taskService.getAllRecurringTasks(userId));
+    }
+
     // --- Admin related
     // Get all users' tasks
     @GetMapping("/all")

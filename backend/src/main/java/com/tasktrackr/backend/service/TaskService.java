@@ -1,11 +1,13 @@
 package com.tasktrackr.backend.service;
 
 import com.tasktrackr.backend.dto.TaskDTO;
+import com.tasktrackr.backend.model.Recurrence;
 import com.tasktrackr.backend.model.Role;
 import com.tasktrackr.backend.model.Task;
 import com.tasktrackr.backend.model.User;
 import com.tasktrackr.backend.repository.TaskRepository;
 import com.tasktrackr.backend.repository.UserRepository;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -45,6 +47,14 @@ public class TaskService {
                 .filter(task -> uniqueNames.add(task.getName())) // add name to set if not already present
                 .map(this::convertToDTO)
                 .collect(Collectors.toSet());
+    }
+    // Get all recurring tasks
+    public List<TaskDTO> getAllRecurringTasks(Long userId) {
+        List<Task> tasks = taskRepository.findByUserId(userId);
+        return tasks.stream()
+                .filter(task -> task.getRecurrence() != null)
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     // --- Admin related
@@ -109,6 +119,14 @@ public class TaskService {
             task.setIsFavourite(dto.getIsFavourite());
         if (dto.getIsImportant() != null)
             task.setIsImportant(dto.getIsImportant());
+        if (dto.getRecurrence() != null)
+            task.setRecurrence(dto.getRecurrence());
+        if (dto.getNextDueDate() != null)
+            task.setNextDueDate(dto.getNextDueDate());
+        if (dto.getRecurrenceStartDate() != null)
+            task.setRecurrenceStartDate(dto.getRecurrenceStartDate());
+        if (dto.getRecurrenceEndDate() != null)
+            task.setRecurrenceEndDate(dto.getRecurrenceEndDate());
 
         taskRepository.save(task);
         return convertToDTO(task);
@@ -127,7 +145,6 @@ public class TaskService {
     public void deleteOldTasks(LocalDate date, Long userId) {
         // currently only deletes tasks for a specific user, CAN CHANGE TO DELETE ALL TASKS
         List<Task> tasks = taskRepository.findTasksByDateBeforeAndUserIdEquals(date, userId);
-        System.out.println(tasks.size());
         taskRepository.deleteAll(tasks);
     }
 
@@ -141,6 +158,10 @@ public class TaskService {
                 .isCompleted(false)
                 .isFavourite(dto.getIsFavourite())
                 .isImportant(dto.getIsImportant())
+                .recurrence(dto.getRecurrence()) // null if not given (not recurring)
+                .nextDueDate(calcNextDueDate(dto)) // null if not given (not recurring)
+                .recurrenceStartDate(dto.getRecurrenceStartDate())
+                .recurrenceEndDate(dto.getRecurrenceEndDate())
                 .build();
     }
 
@@ -154,9 +175,63 @@ public class TaskService {
                 .isComplete(task.getIsCompleted())
                 .isFavourite(task.getIsFavourite())
                 .isImportant(task.getIsImportant())
+                .recurrence(task.getRecurrence())
+                .nextDueDate(task.getNextDueDate())
+                .recurrenceStartDate(task.getRecurrenceStartDate())
+                .recurrenceEndDate(task.getRecurrenceEndDate())
                 .build();
     }
 
+    // Calculate next due date for recurring tasks from recurrence
+    private LocalDate calcNextDueDate(TaskDTO dto) {
+        Recurrence recurrence = dto.getRecurrence();
+        LocalDate recurrenceStartDate = dto.getRecurrenceStartDate();
+        LocalDate recurrenceEndDate = dto.getRecurrenceEndDate();
+        LocalDate today = LocalDate.now();
 
+        // If it is not an infinite recurrence
+        if (recurrenceStartDate != null && recurrenceEndDate != null) {
+        // Check if current date is within recurrence start and end dates
+            if (today.isAfter(recurrenceEndDate))
+                return null;
+            if (today.isBefore(recurrenceStartDate))
+                today = recurrenceStartDate.minusDays(1);
+        }
 
+        // Calculation of next due date
+        LocalDate newDate = null;
+        switch (recurrence) {
+            case DAILY:
+                newDate = today.plusDays(1);
+                break;
+            case WEEKDAYS:
+                if (today.getDayOfWeek().getValue() < 5 || today.getDayOfWeek().getValue() == 7) // Mon-Thu or Sun
+                    newDate = today.plusDays(1);
+                else
+                    newDate = today.plusDays(8 - today.getDayOfWeek().getValue());
+                break;
+            case WEEKENDS:
+                if (today.getDayOfWeek().getValue() < 5) // Mon-Fri
+                    newDate = today.plusDays(6 - today.getDayOfWeek().getValue());
+                else if (today.getDayOfWeek().getValue() == 7) // Sun
+                    newDate = today.plusDays(6);
+                else // Sat
+                    newDate = today.plusDays(1);
+                break;
+            case NONE:
+                newDate = null;
+                break;
+            default: // specific day of the week
+                newDate = today.plusDays(8 - today.getDayOfWeek().getValue());
+                break;
+        }
+
+        // If it is NONE, or the new date is after the recurrence end date, return null
+        if (newDate == null)
+            return null;
+        if (recurrenceEndDate != null && newDate.isAfter(recurrenceEndDate))
+            return null;
+
+        return newDate;
+    }
 }
